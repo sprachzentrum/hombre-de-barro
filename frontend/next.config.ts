@@ -12,6 +12,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH
 
 const nextConfig: NextConfig = {
   basePath: basePath || undefined,
+  // Force trailing slash when running under a sub-path so that
+  // https://deutschmate.de/hombredebarro/ is canonical (avoids a
+  // redirect loop with Cloudflare's slash normalization).
+  trailingSlash: !!basePath,
   images: {
     remotePatterns: [
       {
