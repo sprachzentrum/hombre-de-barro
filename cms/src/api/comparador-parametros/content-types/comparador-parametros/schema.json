@@ -1,0 +1,111 @@
+{
+  "kind": "singleType",
+  "collectionName": "comparador_parametros",
+  "info": {
+    "singularName": "comparador-parametros",
+    "pluralName": "comparadores-parametros",
+    "displayName": "Comparador — Parámetros",
+    "description": "Valores económicos y técnicos del comparador interactivo (USD por m²)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tipo_cambio_default": {
+      "type": "decimal",
+      "default": 1425,
+      "required": true,
+      "description": "ARS por USD — valor inicial del slider (ej. 1425)"
+    },
+    "autoconstruccion_descuento": {
+      "type": "decimal",
+      "default": 0.25,
+      "description": "Descuento fraccional al costo sustentable cuando el visitante elige autoconstrucción (0.25 = 25%)"
+    },
+    "costo_m2_convencional": {
+      "type": "decimal",
+      "default": 1632000,
+      "required": true,
+      "description": "ARS/m² — construcción convencional, completo (CAPC/IEC)"
+    },
+    "costo_m2_sustentable": {
+      "type": "decimal",
+      "default": 1250000,
+      "required": true,
+      "description": "ARS/m² — construcción sustentable, completo"
+    },
+    "energia_conv_por_m2_mes": {
+      "type": "decimal",
+      "default": 2800,
+      "description": "ARS/m²/mes — luz + gas + agua, vivienda convencional"
+    },
+    "energia_sust_por_m2_mes": {
+      "type": "decimal",
+      "default": 600,
+      "description": "ARS/m²/mes — vivienda bioclimática con solar off-grid"
+    },
+    "agua_conv_por_m2_mes": {
+      "type": "decimal",
+      "default": 0,
+      "description": "Solo si se cuenta aparte de \"energia\". Default 0."
+    },
+    "agua_sust_por_m2_mes": {
+      "type": "decimal",
+      "default": 0
+    },
+    "mant_conv_por_m2_año": {
+      "type": "decimal",
+      "default": 15000,
+      "description": "ARS/m²/año — mantenimiento convencional"
+    },
+    "mant_sust_por_m2_año": {
+      "type": "decimal",
+      "default": 10000
+    },
+    "inflacion_energia_conv": {
+      "type": "decimal",
+      "default": 0.40,
+      "description": "Tasa nominal anual en pesos (ej. 0.40 = 40%)"
+    },
+    "inflacion_energia_sust": {
+      "type": "decimal",
+      "default": 0.05
+    },
+    "inflacion_total_conv": {
+      "type": "decimal",
+      "default": 0.40
+    },
+    "inflacion_total_sust": {
+      "type": "decimal",
+      "default": 0.05
+    },
+    "inversion_solar_fija": {
+      "type": "decimal",
+      "default": 12000000,
+      "description": "ARS — inversión solar 3-5 kW off-grid con acumulador litio"
+    },
+    "inversion_agua_fija": {
+      "type": "decimal",
+      "default": 4500000,
+      "description": "ARS — cisterna + filtros + fitodepuración"
+    },
+    "co2_conv_por_m2": {
+      "type": "decimal",
+      "default": 0.45,
+      "description": "Toneladas CO₂ por m² — convencional"
+    },
+    "co2_sust_por_m2": {
+      "type": "decimal",
+      "default": 0.08
+    },
+    "arboles_por_tonelada_co2": {
+      "type": "integer",
+      "default": 45
+    },
+    "disclaimer": {
+      "type": "text",
+      "default": "Valores estimativos basados en el Índice de Edificación de Córdoba (IEC/CAPC, octubre 2025) y referencias del Taller TABI (FAUD-UNC). Tarifas energéticas EPEC + ECOGAS post Decreto 943/2025."
+    }
+  }
+}

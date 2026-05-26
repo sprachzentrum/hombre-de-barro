@@ -1,0 +1,78 @@
+{
+  "kind": "singleType",
+  "collectionName": "pagina_inicio",
+  "info": {
+    "singularName": "pagina-inicio",
+    "pluralName": "paginas-inicio",
+    "displayName": "Página: Inicio",
+    "description": "Contenidos editables de la portada"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero_eyebrow": {
+      "type": "string",
+      "default": "Estudio de Arquitectura Sustentable",
+      "description": "Texto pequeño sobre el título"
+    },
+    "hero_titulo": {
+      "type": "string",
+      "required": true,
+      "default": "Hombre de Barro"
+    },
+    "hero_titulo_italica": {
+      "type": "string",
+      "description": "Segunda línea en cursiva (ej. \"de Barro\")"
+    },
+    "hero_subtitulo": {
+      "type": "text",
+      "maxLength": 400
+    },
+    "hero_imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Opcional: imagen de fondo del hero. Si no se sube, se usa el gradiente verde."
+    },
+    "estadisticas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.stat-item"
+    },
+    "nosotros_eyebrow": {
+      "type": "string",
+      "default": "Quiénes Somos"
+    },
+    "nosotros_titulo": {
+      "type": "string",
+      "default": "La tierra nos enseñó a construir distinto"
+    },
+    "nosotros_texto": {
+      "type": "blocks"
+    },
+    "nosotros_imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "servicios": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.servicio-item"
+    },
+    "cta_titulo": {
+      "type": "string",
+      "default": "¿Tenés un terreno y un sueño?"
+    },
+    "cta_texto": {
+      "type": "text",
+      "default": "Cada proyecto empieza con una conversación."
+    },
+    "cta_boton_texto": {
+      "type": "string",
+      "default": "Agendar Consulta Gratuita"
+    }
+  }
+}

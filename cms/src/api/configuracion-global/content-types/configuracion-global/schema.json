@@ -1,0 +1,74 @@
+{
+  "kind": "singleType",
+  "collectionName": "configuracion_global",
+  "info": {
+    "singularName": "configuracion-global",
+    "pluralName": "configuraciones-globales",
+    "displayName": "Configuración Global",
+    "description": "Datos del estudio, contacto y redes sociales. Aparecen en toda la web."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre_estudio": {
+      "type": "string",
+      "required": true,
+      "default": "Hombre de Barro"
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Arquitectura Sustentable"
+    },
+    "descripcion_corta": {
+      "type": "text",
+      "maxLength": 280,
+      "description": "Aparece en el footer y como meta-descripción por defecto"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "whatsapp": {
+      "type": "string",
+      "description": "Número con código de país, sin + (ej. \"5493546464383\")"
+    },
+    "instagram_url": {
+      "type": "string"
+    },
+    "facebook_url": {
+      "type": "string"
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "pinterest_url": {
+      "type": "string"
+    },
+    "linkedin_url": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "logo_blanco": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "og_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Imagen por defecto para compartir en redes sociales (1200x630)"
+    }
+  }
+}

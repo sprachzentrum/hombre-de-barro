@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_ficha_items",
+  "info": {
+    "displayName": "Ficha Técnica — Ítem",
+    "description": "Una fila de la ficha técnica (etiqueta + valor)",
+    "icon": "list"
+  },
+  "options": {},
+  "attributes": {
+    "etiqueta": {
+      "type": "string",
+      "required": true
+    },
+    "valor": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "miembros_equipo",
+  "info": {
+    "singularName": "miembro-equipo",
+    "pluralName": "miembros-equipo",
+    "displayName": "Miembro del Equipo",
+    "description": "Arquitectos y colaboradores del estudio"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre"
+    },
+    "rol": {
+      "type": "string",
+      "required": true,
+      "description": "Ej. \"Arquitecto / Co-fundador\""
+    },
+    "bio": {
+      "type": "blocks"
+    },
+    "foto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "orden": {
+      "type": "integer",
+      "default": 0,
+      "description": "Orden de aparición (más bajo = primero)"
+    }
+  }
+}

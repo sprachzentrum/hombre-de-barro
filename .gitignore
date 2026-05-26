@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+
+# Strapi
+cms/.tmp/
+cms/.cache/
+cms/build/
+cms/dist/
+cms/public/uploads/
+cms/.strapi/
+cms/.database/
+cms/data.db
+cms/*.sqlite
+cms/*.sqlite3
+
+# Environment
+.env
+.env.local
+.env*.local
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backups
+*.sql
+*.sql.gz
+backups/

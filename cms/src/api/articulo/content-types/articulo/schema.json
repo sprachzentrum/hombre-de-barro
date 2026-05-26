@@ -1,0 +1,99 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articulos",
+  "info": {
+    "singularName": "articulo",
+    "pluralName": "articulos",
+    "displayName": "Artículo — Biblioteca",
+    "description": "Guías, planos y artículos de la biblioteca técnica"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": ["guía", "plano", "artículo"],
+      "required": true,
+      "default": "artículo"
+    },
+    "dificultad": {
+      "type": "enumeration",
+      "enum": ["Básico", "Intermedio", "Avanzado"],
+      "required": true,
+      "default": "Básico"
+    },
+    "tiempo_lectura": {
+      "type": "string",
+      "description": "Ej. \"18 min\""
+    },
+    "extracto": {
+      "type": "text",
+      "maxLength": 320,
+      "required": true,
+      "description": "Resumen para tarjetas y SEO"
+    },
+    "contenido": {
+      "type": "blocks",
+      "description": "Cuerpo del artículo (con imágenes, listas, etc.)"
+    },
+    "imagen_portada": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "tiene_planos": {
+      "type": "boolean",
+      "default": false
+    },
+    "archivos_descarga": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["files"],
+      "description": "PDFs, DWG, etc."
+    },
+    "galeria_proceso": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"],
+      "description": "Fotos paso a paso del proceso"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "materiales": {
+      "type": "richtext",
+      "description": "Lista de materiales en Markdown"
+    },
+    "herramientas": {
+      "type": "richtext",
+      "description": "Lista de herramientas en Markdown"
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::categoria-biblioteca.categoria-biblioteca",
+      "inversedBy": "articulos"
+    },
+    "articulos_relacionados": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::articulo.articulo"
+    }
+  }
+}

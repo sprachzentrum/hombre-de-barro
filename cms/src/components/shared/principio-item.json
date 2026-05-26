@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_principio_items",
+  "info": {
+    "displayName": "Principio",
+    "description": "Principio de la filosofía del estudio",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "numero": {
+      "type": "string",
+      "description": "Numeración o icono (ej. \"01\", \"🌱\")"
+    },
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

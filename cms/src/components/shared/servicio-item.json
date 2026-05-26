@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_servicio_items",
+  "info": {
+    "displayName": "Servicio",
+    "description": "Tarjeta de servicio (icono + título + descripción)",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "icono": {
+      "type": "string",
+      "required": true,
+      "description": "Emoji o nombre de icono (ej. \"🏠\")"
+    },
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true,
+      "maxLength": 280
+    }
+  }
+}

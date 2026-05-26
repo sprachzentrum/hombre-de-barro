@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categorias_biblioteca",
+  "info": {
+    "singularName": "categoria-biblioteca",
+    "pluralName": "categorias-biblioteca",
+    "displayName": "Categoría — Biblioteca",
+    "description": "Categorías de la biblioteca técnica (Muros, Techos, Agua...)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre",
+      "required": true
+    },
+    "icono": {
+      "type": "string",
+      "description": "Emoji (ej. \"🧱\")"
+    },
+    "orden": {
+      "type": "integer",
+      "default": 0
+    },
+    "articulos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::articulo.articulo",
+      "mappedBy": "categoria"
+    }
+  }
+}

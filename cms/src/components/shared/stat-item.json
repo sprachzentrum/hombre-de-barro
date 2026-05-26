@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_stat_items",
+  "info": {
+    "displayName": "Estadística",
+    "description": "Cifra destacada con etiqueta (ej. \"15+ Años\")",
+    "icon": "chartBar"
+  },
+  "options": {},
+  "attributes": {
+    "numero": {
+      "type": "string",
+      "required": true
+    },
+    "etiqueta": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

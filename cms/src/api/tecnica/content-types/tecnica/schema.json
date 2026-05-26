@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tecnicas",
+  "info": {
+    "singularName": "tecnica",
+    "pluralName": "tecnicas",
+    "displayName": "Técnica constructiva",
+    "description": "Taxonomía de técnicas de construcción (adobe, quincha, tapial, cob...)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "icono": {
+      "type": "string",
+      "description": "Emoji (ej. \"🧱\")"
+    },
+    "proyectos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::proyecto.proyecto",
+      "mappedBy": "tecnicas"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_hito_items",
+  "info": {
+    "displayName": "Hito / Meilenstein",
+    "description": "Hito histórico del estudio (timeline)",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "año": {
+      "type": "string",
+      "required": true
+    },
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    }
+  }
+}

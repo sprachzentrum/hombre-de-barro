@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "entradas_blog",
+  "info": {
+    "singularName": "entrada-blog",
+    "pluralName": "entradas-blog",
+    "displayName": "Entrada de Blog",
+    "description": "Posts del blog (noticias, talleres, eventos, opinión)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true,
+      "maxLength": 180
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "extracto": {
+      "type": "text",
+      "maxLength": 320,
+      "required": true
+    },
+    "contenido": {
+      "type": "blocks"
+    },
+    "imagen_portada": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false
+    },
+    "categoria_blog": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::categoria-blog.categoria-blog",
+      "inversedBy": "entradas"
+    }
+  }
+}

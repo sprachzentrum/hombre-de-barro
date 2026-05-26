@@ -1,0 +1,103 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyectos",
+  "info": {
+    "singularName": "proyecto",
+    "pluralName": "proyectos",
+    "displayName": "Proyecto",
+    "description": "Obras y proyectos del estudio"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "ubicacion": {
+      "type": "string",
+      "description": "Ej. \"Villa General Belgrano, Córdoba\""
+    },
+    "superficie_m2": {
+      "type": "integer",
+      "min": 0
+    },
+    "año": {
+      "type": "integer",
+      "min": 1990,
+      "max": 2100
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": ["diseño", "en_obra", "terminado"],
+      "default": "terminado",
+      "required": true
+    },
+    "descripcion_corta": {
+      "type": "text",
+      "maxLength": 220,
+      "description": "Texto corto para tarjetas / vista previa"
+    },
+    "descripcion": {
+      "type": "blocks",
+      "description": "Contenido completo del proyecto"
+    },
+    "imagen_principal": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "galeria": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "plano_pdf": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files"]
+    },
+    "video_url": {
+      "type": "string",
+      "description": "URL de YouTube o Vimeo"
+    },
+    "ficha_tecnica": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.ficha-item"
+    },
+    "testimonial_texto": {
+      "type": "text"
+    },
+    "testimonial_autor": {
+      "type": "string"
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false,
+      "description": "Mostrar en la portada"
+    },
+    "color_acento": {
+      "type": "string",
+      "default": "#4a6741",
+      "description": "Color HEX para la tarjeta (ej. \"#4a6741\")"
+    },
+    "tecnicas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tecnica.tecnica",
+      "inversedBy": "proyectos"
+    }
+  }
+}

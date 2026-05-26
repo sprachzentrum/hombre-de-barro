@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categorias_blog",
+  "info": {
+    "singularName": "categoria-blog",
+    "pluralName": "categorias-blog",
+    "displayName": "Categoría — Blog",
+    "description": "Categorías del blog (Noticias, Talleres, Eventos...)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre",
+      "required": true
+    },
+    "entradas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::entrada-blog.entrada-blog",
+      "mappedBy": "categoria_blog"
+    }
+  }
+}

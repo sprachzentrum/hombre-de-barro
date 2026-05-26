@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultas",
+  "info": {
+    "singularName": "consulta",
+    "pluralName": "consultas",
+    "displayName": "Consulta recibida",
+    "description": "Mensajes recibidos vía el formulario de contacto"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "interes": {
+      "type": "enumeration",
+      "enum": ["vivienda", "techo_verde", "reforma", "asesoria", "otro"],
+      "default": "otro"
+    },
+    "mensaje": {
+      "type": "text",
+      "required": true
+    },
+    "leido": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
