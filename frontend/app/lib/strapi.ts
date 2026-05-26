@@ -80,7 +80,11 @@ export async function fetchSingle<T>(
 export function mediaUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   if (url.startsWith("http")) return url;
-  return `${PUBLIC_STRAPI_URL}${url}`;
+  // Strapi uploads live under /uploads/* and must be prefixed with the
+  // Strapi host. Anything else (e.g. /images/* from public/) is served
+  // by Next.js itself, so return as-is.
+  if (url.startsWith("/uploads/")) return `${PUBLIC_STRAPI_URL}${url}`;
+  return url;
 }
 
 /* ── Best-format helper for responsive images ─────────────────────

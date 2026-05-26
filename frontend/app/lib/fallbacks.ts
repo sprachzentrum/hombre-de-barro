@@ -38,7 +38,14 @@ export const fallbackInicio: PaginaInicio = {
   hero_titulo_italica: "de Barro",
   hero_subtitulo:
     "Hogares que respiran con la tierra. Adobe, quincha y materiales nobles — tradición ancestral y diseño contemporáneo.",
-  hero_imagen: null,
+  hero_imagen: {
+    id: 1000,
+    documentId: "local-hero",
+    url: "/images/hero.jpg",
+    alternativeText: "Construcción en tierra cruda en las Sierras de Córdoba",
+    width: 1600,
+    height: 900,
+  },
   estadisticas: [
     { id: 1, numero: "15+", etiqueta: "Años" },
     { id: 2, numero: "80", etiqueta: "Proyectos" },
@@ -163,6 +170,22 @@ function isoDate(year: number, month = 1, day = 1) {
   return new Date(Date.UTC(year, month - 1, day)).toISOString();
 }
 
+/* Build a fake StrapiMedia pointing at a local /public asset. */
+function localImage(
+  id: number,
+  path: string,
+  alt: string
+): import("./strapi").StrapiMedia {
+  return {
+    id,
+    documentId: `local-${id}`,
+    url: path,
+    alternativeText: alt,
+    width: 1600,
+    height: 900,
+  };
+}
+
 export const fallbackProyectos: Proyecto[] = [
   {
     id: 1,
@@ -177,6 +200,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Centro holístico octogonal de 9 m de diámetro con estructura de eucalipto y muros de quincha. Simbología comechingón integrada al diseño.",
     destacado: true,
     color_acento: "#4a6741",
+    imagen_principal: localImage(1001, "/images/proyectos/nina-huasi.jpg", "Nina Huasi — quincha octogonal"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Estructura", valor: "Eucalipto rollizo (esqueleto octogonal)" },
       { id: 2, etiqueta: "Muros", valor: "Quincha con arcilla y caña" },
@@ -241,6 +265,7 @@ export const fallbackProyectos: Proyecto[] = [
     ],
     destacado: true,
     color_acento: "#8b6f47",
+    imagen_principal: localImage(1002, "/images/proyectos/vivienda-tunduqueral.jpg", "Vivienda Tunduqueral — Uspallata"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema constructivo", valor: "Quincha mejorada según CIRSOC 601" },
       { id: 2, etiqueta: "Zona sísmica", valor: "Zona 4 (la más severa de Argentina)" },
@@ -269,6 +294,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Vivienda emplazada en un bosque de pinos sobre ladera. Estructura de madera, muros de quincha y techo verde con pasto Tifway.",
     destacado: true,
     color_acento: "#5a7247",
+    imagen_principal: localImage(1003, "/images/proyectos/aguas-del-sol.jpg", "Aguas del Sol — techo verde"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Muros", valor: "Quincha con barro estabilizado" },
       { id: 2, etiqueta: "Estructura", valor: "Madera local" },
@@ -291,6 +317,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Construcción de cúpulas con tierra estabilizada al 10 % de cemento. Volúmenes orgánicos integrados al paisaje serrano.",
     destacado: false,
     color_acento: "#6b5b3e",
+    imagen_principal: localImage(1004, "/images/proyectos/casa-de-cupulas.jpg", "Casa de Cúpulas — Inti Yaco"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema", valor: "Tierra estabilizada (10 % cemento)" },
       { id: 2, etiqueta: "Tipología", valor: "Cúpulas / bóvedas autoportantes" },
@@ -312,6 +339,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Residencia familiar en estancia de la pampa rural. Diseño bioclimático con materiales y mano de obra de la zona.",
     destacado: false,
     color_acento: "#7a9b6d",
+    imagen_principal: localImage(1005, "/images/proyectos/casa-adelia-maria.jpg", "Casa en Adelia María"),
     createdAt: isoDate(2022, 1, 1),
     updatedAt: isoDate(2022, 1, 1),
   },
@@ -328,6 +356,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Madera, piedra, fibras y tierra. 132 m² cubiertos + 27 m² semicubiertos. Colaboración con Estudio Garrone.",
     destacado: false,
     color_acento: "#c4a050",
+    imagen_principal: localImage(1006, "/images/proyectos/casa-champaqui.jpg", "Casa Champaquí — Los Reartes"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Materiales", valor: "Madera, piedra, fibras vegetales, tierra" },
       { id: 2, etiqueta: "Superficie cubierta", valor: "132 m²" },
