@@ -12,6 +12,7 @@ import type {
   Tecnica,
   MiembroEquipo,
 } from "./types";
+import { ARTICULO_CONTENT as EXTRA_ARTICULO_CONTENT } from "./articulos-content";
 
 export const fallbackConfig: ConfiguracionGlobal = {
   nombre_estudio: "Hombre de Barro",
@@ -265,7 +266,7 @@ export const fallbackProyectos: Proyecto[] = [
     ],
     destacado: true,
     color_acento: "#8b6f47",
-    imagen_principal: localImage(1002, "/images/proyectos/vivienda-tunduqueral.jpg", "Vivienda Tunduqueral — Uspallata"),
+    imagen_principal: localImage(1002, "/images/proyectos/tunduqueral.jpg", "Vivienda Tunduqueral — Uspallata"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema constructivo", valor: "Quincha mejorada según CIRSOC 601" },
       { id: 2, etiqueta: "Zona sísmica", valor: "Zona 4 (la más severa de Argentina)" },
@@ -317,7 +318,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Construcción de cúpulas con tierra estabilizada al 10 % de cemento. Volúmenes orgánicos integrados al paisaje serrano.",
     destacado: false,
     color_acento: "#6b5b3e",
-    imagen_principal: localImage(1004, "/images/proyectos/casa-de-cupulas.jpg", "Casa de Cúpulas — Inti Yaco"),
+    imagen_principal: localImage(1004, "/images/proyectos/cupulas.jpg", "Casa de Cúpulas — Inti Yaco"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema", valor: "Tierra estabilizada (10 % cemento)" },
       { id: 2, etiqueta: "Tipología", valor: "Cúpulas / bóvedas autoportantes" },
@@ -466,10 +467,8 @@ const ARTICULO_SEEDS: ArticuloSeed[] = [
     "22 min", "Avanzado", true, true],
 ];
 
-/* Optional full content per slug — articles not listed here are shown
-   with just the extracto plus a placeholder body (the architects will
-   fill them from Strapi later). */
-const ARTICULO_CONTENT: Record<string, NonNullable<Articulo["contenido"]>> = {
+/* Full content per slug. Strapi entries override these per article. */
+const CIRSOC_ARTICLE: Record<string, NonNullable<Articulo["contenido"]>> = {
   "quincha-sismorresistente-cirsoc-601": [
     {
       type: "paragraph",
@@ -611,6 +610,11 @@ const ARTICULO_CONTENT: Record<string, NonNullable<Articulo["contenido"]>> = {
       ],
     },
   ],
+};
+
+const ARTICULO_CONTENT: Record<string, NonNullable<Articulo["contenido"]>> = {
+  ...CIRSOC_ARTICLE,
+  ...(EXTRA_ARTICULO_CONTENT as Record<string, NonNullable<Articulo["contenido"]>>),
 };
 
 export const fallbackArticulos: Articulo[] = ARTICULO_SEEDS.map(
@@ -766,7 +770,7 @@ export const fallbackNosotros: PaginaNosotros = {
     { id: 5, año: "2019", titulo: "1.º Premio Red ProTierra", descripcion: "Por la Vivienda Tunduqueral en Uspallata, Mendoza — quincha sismo-resistente." },
     { id: 6, año: "2020", titulo: "Nina Huasi", descripcion: "Centro holístico octogonal en quincha — 180 m² cubiertos sobre 350 m² de superficie total." },
   ],
-  imagen_principal: null,
+  imagen_principal: localImage(1100, "/images/equipo.jpg", "El equipo de Hombre de Barro trabajando sobre planos"),
 };
 
 import type { EntradaBlog, CategoriaBlog } from "./types";

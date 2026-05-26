@@ -1,4 +1,5 @@
 import qs from "qs";
+import { assetPath } from "./basePath";
 
 const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 const PUBLIC_STRAPI_URL =
@@ -81,10 +82,11 @@ export function mediaUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   if (url.startsWith("http")) return url;
   // Strapi uploads live under /uploads/* and must be prefixed with the
-  // Strapi host. Anything else (e.g. /images/* from public/) is served
-  // by Next.js itself, so return as-is.
+  // Strapi host.
   if (url.startsWith("/uploads/")) return `${PUBLIC_STRAPI_URL}${url}`;
-  return url;
+  // Local public/* asset — prepend basePath so Next's image optimizer
+  // can resolve it under `/hombredebarro/...` in production.
+  return assetPath(url);
 }
 
 /* ── Best-format helper for responsive images ─────────────────────

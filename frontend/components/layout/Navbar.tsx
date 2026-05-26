@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { assetPath } from "@/app/lib/basePath";
 import styles from "./Navbar.module.css";
 
 const NAV_LINKS = [
@@ -54,7 +55,7 @@ export default function Navbar({
         <div className={styles.inner}>
           <Link href="/" className={styles.brand} aria-label={brandName}>
             <Image
-              src="/logo-mark.svg"
+              src={assetPath("/logo-mark.svg")}
               alt=""
               width={26}
               height={52}

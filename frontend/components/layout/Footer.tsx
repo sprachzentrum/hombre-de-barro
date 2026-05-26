@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/app/lib/basePath";
 import styles from "./Footer.module.css";
 import type { ConfiguracionGlobal } from "@/app/lib/types";
 
@@ -40,7 +41,7 @@ export default function Footer({ config }: FooterProps) {
         <div className={styles.cols}>
           <div className={styles.brandCol}>
             <Image
-              src="/logo.svg"
+              src={assetPath("/logo.svg")}
               alt={config.nombre_estudio}
               width={170}
               height={142}
