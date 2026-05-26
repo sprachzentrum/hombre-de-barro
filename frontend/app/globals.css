@@ -1,0 +1,221 @@
+/* ════════════════════════════════════════════════════════════════════
+   Hombre de Barro — Design System
+   Tokens, resets and base typography. Component-specific styles live
+   in CSS Modules colocated with each component.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Tierra & Lehm (alineado con el logo) ──────────────────────── */
+  --marron-profundo: #3d2b1a;  /* fondo del logo */
+  --marron-oscuro: #5a3e25;
+  --tierra-dark: #6b5235;
+  --tierra: #8b6f47;
+  --tierra-light: #c4a97d;
+  --arena: #c8b090;             /* texto medio del logo */
+  --arena-clara: #d4c0a0;
+  --crema-logo: #e8d8c0;        /* texto destacado del logo */
+
+  /* ── Vegetation & Verde ────────────────────────────────────────── */
+  --verde-profundo: #1a2e1a;
+  --verde-oscuro: #2d4a2e;
+  --verde-bosque: #3d6b3f;
+  --verde-medio: #4a6741;
+  --verde-salvia: #7a9b6d;
+  --verde-claro: #a8c49a;
+
+  /* ── Neutrales ─────────────────────────────────────────────────── */
+  --crema: #f4f0e8;
+  --crema-warm: #efe8d8;
+  --crema-soft: #faf6ee;
+  --carbon: #2d2a24;
+  --carbon-soft: #5a5549;
+  --linea: #e8e2d6;
+  --linea-soft: #d9d3c7;
+
+  /* ── Acentos (Charts) ──────────────────────────────────────────── */
+  --rojo-tierra: #e8826a;
+  --azul-agua: #8bc4e8;
+  --amarillo-sol: #e8c86a;
+
+  /* ── Semánticos ────────────────────────────────────────────────── */
+  --fg: var(--carbon);
+  --fg-muted: var(--carbon-soft);
+  --bg: var(--crema);
+  --bg-warm: var(--crema-warm);
+  --bg-dark: var(--marron-profundo);
+  --accent: var(--verde-bosque);
+  --accent-hover: var(--verde-profundo);
+
+  /* ── Tipografía ────────────────────────────────────────────────── */
+  --font-display: var(--font-display, Georgia, serif);
+  --font-sans: var(--font-sans, -apple-system, system-ui, sans-serif);
+
+  /* ── Layout ────────────────────────────────────────────────────── */
+  --container: 1200px;
+  --container-narrow: 900px;
+  --container-wide: 1400px;
+  --section-pad: clamp(60px, 8vw, 100px);
+  --gutter: clamp(20px, 4vw, 28px);
+
+  /* ── Radien ────────────────────────────────────────────────────── */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-pill: 50px;
+
+  /* ── Schatten ──────────────────────────────────────────────────── */
+  --shadow-sm: 0 2px 8px rgba(45, 74, 46, 0.06);
+  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 48px rgba(45, 74, 46, 0.12);
+
+  /* ── Transiciones ──────────────────────────────────────────────── */
+  --t-fast: 0.2s ease;
+  --t-base: 0.3s ease;
+  --t-slow: 0.6s ease;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Tipografía base ─────────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--carbon);
+}
+
+em {
+  font-style: italic;
+}
+
+/* ── Utility classes ─────────────────────────────────────────────── */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container-narrow {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-pad);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--verde-bosque);
+  font-weight: 500;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4.5vw, 46px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--carbon);
+  margin-bottom: 20px;
+}
+
+.divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--verde-bosque), var(--verde-claro));
+  margin: 0 auto 36px;
+  border-radius: 1px;
+}
+
+/* ── Grain texture (decorative overlay) ──────────────────────────── */
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* ── Project detail layout — stack sidebar on mobile ─────────────── */
+@media (max-width: 900px) {
+  .proyecto-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

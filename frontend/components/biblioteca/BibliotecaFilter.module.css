@@ -1,0 +1,178 @@
+.search {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 18px;
+  border: 1.5px solid var(--linea-soft);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  background: #fff;
+  color: var(--carbon);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.search:focus {
+  border-color: var(--verde-bosque);
+  box-shadow: 0 0 0 3px rgba(61, 107, 63, 0.1);
+}
+
+.search::placeholder {
+  color: #b0a898;
+}
+
+.filterRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  align-items: center;
+}
+
+.filterLabel {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--carbon-soft);
+  margin-right: 6px;
+}
+
+.pill {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid var(--linea-soft);
+  background: #fff;
+  color: var(--carbon-soft);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+}
+
+.pillActive {
+  background: var(--verde-bosque);
+  color: #fff;
+  border-color: var(--verde-bosque);
+}
+
+.pill:hover:not(.pillActive) {
+  border-color: var(--verde-salvia);
+  background: rgba(61, 107, 63, 0.04);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--carbon-soft);
+  margin: 18px 0 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--linea);
+  overflow: hidden;
+  transition: all 0.35s ease;
+  display: block;
+  color: inherit;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  border-color: var(--verde-claro);
+}
+
+.bar {
+  height: 4px;
+}
+
+.body {
+  padding: 20px 20px 16px;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badgeType,
+.badgeReading,
+.badgePlans {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.badgeReading {
+  color: #888;
+  background: #f5f3ee;
+  font-weight: 500;
+}
+
+.badgePlans {
+  color: var(--tierra);
+  background: rgba(139, 111, 71, 0.08);
+  font-weight: 500;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--carbon);
+  line-height: 1.3;
+}
+
+.desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--carbon-soft);
+  margin-bottom: 12px;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.difficulty {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+
+.more {
+  font-size: 12px;
+  color: var(--verde-bosque);
+  font-weight: 600;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--carbon-soft);
+}
+
+.emptyIcon {
+  font-size: 44px;
+  margin-bottom: 10px;
+}

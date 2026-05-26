@@ -1,0 +1,24 @@
+<svg viewBox="180 130 720 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4b578"/>
+      <stop offset="100%" stop-color="#a07840"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Footprint: sole + 5 toes + arch cutout -->
+  <g transform="translate(540, 370)">
+    <path d="M-6,-155 C-40,-152 -72,-124 -80,-82 C-88,-40 -82,8 -74,52 C-66,90 -58,120 -48,148 C-38,172 -22,188 -4,196 C16,204 34,196 50,180 C66,162 74,132 76,98 C78,60 76,22 68,-18 C60,-56 56,-86 62,-116 C68,-144 52,-158 28,-162 C10,-166 0,-158 -6,-155Z" fill="url(#gold)" opacity="0.92"/>
+    <ellipse cx="-62" cy="-192" rx="14" ry="19" fill="url(#gold)" opacity="0.92" transform="rotate(-10 -62 -192)"/>
+    <ellipse cx="-26" cy="-208" rx="14" ry="19" fill="url(#gold)" opacity="0.92" transform="rotate(-3 -26 -208)"/>
+    <ellipse cx="14" cy="-214" rx="13" ry="18" fill="url(#gold)" opacity="0.92" transform="rotate(2 14 -214)"/>
+    <ellipse cx="50" cy="-206" rx="12" ry="16" fill="url(#gold)" opacity="0.92" transform="rotate(10 50 -206)"/>
+    <ellipse cx="80" cy="-188" rx="10" ry="14" fill="url(#gold)" opacity="0.92" transform="rotate(20 80 -188)"/>
+    <!-- Inner arch cutout -->
+    <path d="M10,-80 C-10,-60 -16,-28 -12,8 C-8,40 2,66 16,86 C28,100 38,94 42,78 C48,58 48,32 44,4 C40,-24 36,-50 38,-68 C40,-80 30,-86 18,-84Z" fill="rgba(30,22,16,0.55)"/>
+  </g>
+
+  <!-- Divider line + wordmark -->
+  <line x1="340" y1="660" x2="740" y2="660" stroke="#c9a96e" stroke-width="0.6" opacity="0.5"/>
+  <text x="540" y="700" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" fill="#c9a96e" letter-spacing="14" font-weight="300">HOMBRE DE BARRO</text>
+</svg>

@@ -1,0 +1,64 @@
+.section {
+  background: linear-gradient(170deg, #1a2e1a, #2d4a2e 60%, #3d5a35);
+  padding: 90px 28px;
+  color: var(--crema);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.title {
+  color: var(--crema);
+}
+
+.sub {
+  max-width: 580px;
+  margin: -10px auto 36px;
+  font-size: 15px;
+  color: rgba(244, 240, 232, 0.65);
+  line-height: 1.7;
+}
+
+.preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 24px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: left;
+}
+
+.metricLabel {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.45);
+  margin-bottom: 6px;
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.metricSub {
+  font-size: 11px;
+  color: rgba(244, 240, 232, 0.4);
+  margin-top: 4px;
+}
