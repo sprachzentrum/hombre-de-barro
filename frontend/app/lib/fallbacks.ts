@@ -209,7 +209,7 @@ export const fallbackProyectos: Proyecto[] = [
     año: 2019,
     estado: "terminado",
     descripcion_corta:
-      "Casa de quincha sismo-resistente en la precordillera de los Andes — zona sísmica 4, la más exigente de Argentina. Sus aberturas orgánicas, la «piel de iguana», le dan nombre. Construcción verificada bajo norma CIRSOC 601. 1.º Premio Red ProTierra 2019.",
+      "Casa de quincha sismo-resistente en la precordillera de los Andes — zona sísmica 4, la más exigente de Argentina. Sus aberturas orgánicas, la «piel de iguana», le dan nombre. 1.º Premio Red ProTierra 2019.",
     descripcion: [
       {
         type: "heading",
