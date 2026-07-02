@@ -44,9 +44,9 @@ export const fallbackInicio: PaginaInicio = {
     documentId: "local-hero",
     url: "/images/hero.jpg",
     alternativeText:
-      "El Cóndor — vivienda con techo verde integrada a las sierras de Córdoba",
-    width: 1920,
-    height: 1082,
+      "Casa Iguana en Uspallata, Mendoza — quincha sismo-resistente, 1.º Premio Red ProTierra 2019",
+    width: 1280,
+    height: 960,
   },
   estadisticas: [
     { id: 1, numero: "15+", etiqueta: "Años" },
@@ -334,8 +334,8 @@ export const fallbackProyectos: Proyecto[] = [
     ]),
     ficha_tecnica: [
       { id: 1, etiqueta: "Estructura", valor: "Madera rolliza de eucalipto" },
-      { id: 2, etiqueta: "Muros", valor: "Tierra cruda revocada" },
-      { id: 3, etiqueta: "Cubierta", valor: "Techo verde sobre estructura de madera" },
+      { id: 2, etiqueta: "Técnica", valor: "Quincha con revoque a la cal y marmolina" },
+      { id: 3, etiqueta: "Cubierta", valor: "Techo verde y de piedra — 1/3 cubierta invertida" },
       { id: 4, etiqueta: "Calefacción", valor: "Estufa de masa térmica" },
     ],
     createdAt: isoDate(2023, 3, 1),
