@@ -26,7 +26,7 @@ export const fallbackConfig: ConfiguracionGlobal = {
   instagram_url: "https://www.instagram.com/hombredebarro786",
   facebook_url: "https://www.facebook.com/hombredbarro/",
   youtube_url: "",
-  pinterest_url: "",
+  pinterest_url: "https://ar.pinterest.com/HombredebarroVGB/",
   linkedin_url: "",
   logo: null,
   logo_blanco: null,
@@ -43,9 +43,10 @@ export const fallbackInicio: PaginaInicio = {
     id: 1000,
     documentId: "local-hero",
     url: "/images/hero.jpg",
-    alternativeText: "Construcción en tierra cruda en las Sierras de Córdoba",
-    width: 1600,
-    height: 900,
+    alternativeText:
+      "El Cóndor — vivienda con techo verde integrada a las sierras de Córdoba",
+    width: 1920,
+    height: 1082,
   },
   estadisticas: [
     { id: 1, numero: "15+", etiqueta: "Años" },
@@ -175,54 +176,40 @@ function isoDate(year: number, month = 1, day = 1) {
 function localImage(
   id: number,
   path: string,
-  alt: string
+  alt: string,
+  width = 1600,
+  height = 900
 ): import("./strapi").StrapiMedia {
   return {
     id,
     documentId: `local-${id}`,
     url: path,
     alternativeText: alt,
-    width: 1600,
-    height: 900,
+    width,
+    height,
   };
+}
+
+/* Shorthand for gallery arrays: [path, alt, width, height] */
+type GalSeed = [string, string, number, number];
+function gallery(baseId: number, seeds: GalSeed[]): import("./strapi").StrapiMedia[] {
+  return seeds.map(([path, alt, w, h], i) =>
+    localImage(baseId + i, path, alt, w, h)
+  );
 }
 
 export const fallbackProyectos: Proyecto[] = [
   {
-    id: 1,
-    documentId: "demo-nina-huasi",
-    titulo: "Nina Huasi",
-    slug: "nina-huasi",
-    ubicacion: "Villa General Belgrano, Córdoba",
-    superficie_m2: 180,
-    año: 2020,
-    estado: "terminado",
-    descripcion_corta:
-      "Centro holístico octogonal de 9 m de diámetro con estructura de eucalipto y muros de quincha. Simbología comechingón integrada al diseño.",
-    destacado: true,
-    color_acento: "#4a6741",
-    imagen_principal: localImage(1001, "/images/proyectos/nina-huasi.jpg", "Nina Huasi — quincha octogonal"),
-    ficha_tecnica: [
-      { id: 1, etiqueta: "Estructura", valor: "Eucalipto rollizo (esqueleto octogonal)" },
-      { id: 2, etiqueta: "Muros", valor: "Quincha con arcilla y caña" },
-      { id: 3, etiqueta: "Cubierta", valor: "Madera + aislación natural" },
-      { id: 4, etiqueta: "Superficie cubierta", valor: "180 m²" },
-      { id: 5, etiqueta: "Superficie total", valor: "350 m²" },
-    ],
-    createdAt: isoDate(2020, 6, 1),
-    updatedAt: isoDate(2020, 6, 1),
-  },
-  {
     id: 2,
     documentId: "demo-tunduqueral",
-    titulo: "Vivienda Tunduqueral",
+    titulo: "Casa Iguana — Tunduqueral",
     slug: "vivienda-tunduqueral",
     ubicacion: "Uspallata, Mendoza",
     superficie_m2: 140,
     año: 2019,
     estado: "terminado",
     descripcion_corta:
-      "Casa de quincha sismo-resistente en la precordillera de los Andes — zona sísmica 4, la más exigente de Argentina. Construcción verificada bajo norma CIRSOC 601. 1.º Premio Red ProTierra 2019.",
+      "Casa de quincha sismo-resistente en la precordillera de los Andes — zona sísmica 4, la más exigente de Argentina. Sus aberturas orgánicas, la «piel de iguana», le dan nombre. Construcción verificada bajo norma CIRSOC 601. 1.º Premio Red ProTierra 2019.",
     descripcion: [
       {
         type: "heading",
@@ -266,13 +253,30 @@ export const fallbackProyectos: Proyecto[] = [
     ],
     destacado: true,
     color_acento: "#8b6f47",
-    imagen_principal: localImage(1002, "/images/proyectos/tunduqueral.jpg", "Vivienda Tunduqueral — Uspallata"),
+    imagen_principal: localImage(
+      1002,
+      "/images/proyectos/vivienda-tunduqueral/main.jpg",
+      "Casa Iguana — vivienda de quincha en Uspallata, Mendoza",
+      1040,
+      780
+    ),
+    galeria: gallery(10020, [
+      ["/images/proyectos/vivienda-tunduqueral/g1.jpg", "Casa Iguana bajo el cielo mendocino", 1280, 960],
+      ["/images/proyectos/vivienda-tunduqueral/g2.jpg", "Casa Iguana nevada — la quincha en invierno", 736, 552],
+      ["/images/proyectos/vivienda-tunduqueral/g3.jpg", "La casa frente a la cordillera nevada", 736, 552],
+      ["/images/proyectos/vivienda-tunduqueral/g4.jpg", "La «piel de iguana»: aberturas orgánicas en la envolvente", 1040, 780],
+      ["/images/proyectos/vivienda-tunduqueral/g5.jpg", "Interior — estufa de masa y barra de piedra", 960, 1280],
+      ["/images/proyectos/vivienda-tunduqueral/g6.jpg", "Estar con muros esculpidos en barro", 800, 336],
+      ["/images/proyectos/vivienda-tunduqueral/g7.jpg", "El jardín en primavera", 1280, 960],
+      ["/images/proyectos/vivienda-tunduqueral/g8.jpg", "Los ojos de la casa iluminados de noche", 1024, 768],
+      ["/images/proyectos/vivienda-tunduqueral/g9.jpg", "Baño con aberturas orgánicas", 1080, 810],
+    ]),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema constructivo", valor: "Quincha mejorada según CIRSOC 601" },
       { id: 2, etiqueta: "Zona sísmica", valor: "Zona 4 (la más severa de Argentina)" },
       { id: 3, etiqueta: "Estructura", valor: "Esqueleto de eucalipto rollizo arriostrado" },
       { id: 4, etiqueta: "Muros", valor: "Quincha con caña tacuara y barro armado" },
-      { id: 5, etiqueta: "Cubierta", valor: "Doble curvatura — madera local y tejuelas" },
+      { id: 5, etiqueta: "Cubierta", valor: "Invertida de doble curvatura, con piedra de río" },
       { id: 6, etiqueta: "Superficie", valor: "140 m²" },
       { id: 7, etiqueta: "Reconocimiento", valor: "1.º Premio Red ProTierra 2019" },
     ],
@@ -284,18 +288,155 @@ export const fallbackProyectos: Proyecto[] = [
   },
   {
     id: 3,
+    documentId: "demo-el-condor",
+    titulo: "El Cóndor",
+    slug: "el-condor",
+    ubicacion: "El Durazno, Valle de Calamuchita, Córdoba",
+    estado: "terminado",
+    descripcion_corta:
+      "Vivienda de tierra y madera con cubierta verde, posada sobre un afloramiento rocoso en las sierras de El Durazno. Interiores luminosos de madera clara y estufa de masa.",
+    descripcion: [
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "El Cóndor se asienta sobre la roca viva de las sierras de El Durazno, en el Valle de Calamuchita. La casa acompaña la topografía: su cubierta verde continúa el pastizal serrano y desde lejos el volumen casi desaparece en la ladera.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "Adentro domina la madera: pisos y cielorrasos de tono claro, columnas de rollizo a la vista y una estufa de masa que organiza el estar. Las ventanas altas siguen la curva del techo y bañan de luz los espacios durante todo el día.",
+          },
+        ],
+      },
+    ],
+    destacado: true,
+    color_acento: "#6b7d4f",
+    imagen_principal: localImage(
+      1003,
+      "/images/proyectos/el-condor/main.jpg",
+      "El Cóndor — vivienda con techo verde en El Durazno",
+      1280,
+      720
+    ),
+    galeria: gallery(10030, [
+      ["/images/proyectos/el-condor/g1.jpg", "La cubierta verde se funde con el pastizal serrano", 1400, 789],
+      ["/images/proyectos/el-condor/g2.jpg", "Galería y deck de madera con vista al valle", 1280, 720],
+      ["/images/proyectos/el-condor/g3.jpg", "Interior — comedor con columnas de rollizo", 787, 1400],
+      ["/images/proyectos/el-condor/g4.jpg", "El estar, madera clara y muros de tierra", 720, 1280],
+      ["/images/proyectos/el-condor/g5.jpg", "Cocina integrada con carpintería de madera", 1280, 720],
+      ["/images/proyectos/el-condor/g6.jpg", "El muro curvo y la cubierta ondulante", 1280, 720],
+      ["/images/proyectos/el-condor/g7.jpg", "Dormitorio con vista a las sierras", 720, 1280],
+      ["/images/proyectos/el-condor/g8.jpg", "El acceso bajo la gran cubierta en voladizo", 1280, 720],
+    ]),
+    ficha_tecnica: [
+      { id: 1, etiqueta: "Estructura", valor: "Madera rolliza de eucalipto" },
+      { id: 2, etiqueta: "Muros", valor: "Tierra cruda revocada" },
+      { id: 3, etiqueta: "Cubierta", valor: "Techo verde sobre estructura de madera" },
+      { id: 4, etiqueta: "Calefacción", valor: "Estufa de masa térmica" },
+    ],
+    createdAt: isoDate(2023, 3, 1),
+    updatedAt: isoDate(2023, 3, 1),
+  },
+  {
+    id: 4,
+    documentId: "demo-suite-del-arroyo",
+    titulo: "Suite del Arroyo",
+    slug: "suite-del-arroyo",
+    ubicacion: "Complejo La Anita, Intiyaco, Valle de Calamuchita",
+    superficie_m2: 86,
+    año: 2016,
+    estado: "terminado",
+    descripcion_corta:
+      "Bio-suite sobre el arroyo del complejo La Anita, entre un bosque de pinos de las Sierras Grandes. Geometría curva, muros de adobe y quincha, y una galería que se abre al agua.",
+    descripcion: [
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "A 6 km de Intiyaco, en el valle de Calamuchita, el complejo La Anita entrelaza sus bio-suites entre un bosque de pinos y un arroyo. La suite del arroyo nace de esa cercanía al agua: el hidromasaje, el dormitorio y la galería se abren hacia el cauce para verlo y escucharlo correr.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "El partido geométrico se resolvió con la línea curva — en planta y en muros — buscando mayor riqueza perceptual y mejor respuesta estructural. El esqueleto es de madera de eucalipto de 15 cm de diámetro, bajo normas CIRSOC 601 y 103: un sistema sismo-resistente apto para la zona 1.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "La envolvente combina técnicas mixtas de construcción con tierra: muros de adobe de 37 cm y quinchas de 33 cm, un excelente amortiguador térmico frente a las grandes amplitudes del lugar. La terminación es de revoques gruesos de arcilla y arena, y finos en base a arcilla, cal, estiércol de vaca y arena fina (albuminato). Tierra, piedra y madera: lo que se observa en el entorno es lo que construye la arquitectura.",
+          },
+        ],
+      },
+    ],
+    destacado: true,
+    color_acento: "#5a7247",
+    imagen_principal: localImage(
+      1004,
+      "/images/proyectos/suite-del-arroyo/main.jpg",
+      "Suite del Arroyo — fachada norte con aberturas orgánicas",
+      1920,
+      1080
+    ),
+    galeria: gallery(10040, [
+      ["/images/proyectos/suite-del-arroyo/g1.jpg", "La suite elevada sobre el arroyo", 1400, 788],
+      ["/images/proyectos/suite-del-arroyo/g2.jpg", "La fachada entre los pinos", 1400, 788],
+      ["/images/proyectos/suite-del-arroyo/g3.jpg", "El muro curvo y la cubierta hacia el norte", 1400, 788],
+      ["/images/proyectos/suite-del-arroyo/g4.jpg", "Vitral circular en el muro de barro", 506, 640],
+      ["/images/proyectos/suite-del-arroyo/g5.jpg", "El estar con asientos esculpidos", 640, 437],
+      ["/images/proyectos/suite-del-arroyo/g6.jpg", "Botellas de vidrio integradas al muro", 1400, 788],
+      ["/images/proyectos/suite-del-arroyo/g7.jpg", "Hidromasaje con vista al bosque", 1050, 1400],
+      ["/images/proyectos/suite-del-arroyo/g8.jpg", "La galería sobre pilotes de madera", 1400, 788],
+    ]),
+    ficha_tecnica: [
+      { id: 1, etiqueta: "Sistema constructivo", valor: "Mixto: adobe (37 cm) y quincha (33 cm)" },
+      { id: 2, etiqueta: "Estructura", valor: "Eucalipto ø 15 cm — CIRSOC 601 / 103" },
+      { id: 3, etiqueta: "Superficie total", valor: "86 m²" },
+      { id: 4, etiqueta: "Superficie cubierta", valor: "65 m²" },
+      { id: 5, etiqueta: "Revoques", valor: "Arcilla y arena; finos con cal y albuminato" },
+      { id: 6, etiqueta: "Obra", valor: "Septiembre 2015 – noviembre 2016" },
+    ],
+    createdAt: isoDate(2016, 11, 1),
+    updatedAt: isoDate(2016, 11, 1),
+  },
+  {
+    id: 5,
     documentId: "demo-aguas-del-sol",
     titulo: "Aguas del Sol",
     slug: "aguas-del-sol",
-    ubicacion: "Inti Yaco, Valle de Calamuchita, Córdoba",
+    ubicacion: "Complejo La Anita, Intiyaco, Valle de Calamuchita",
     superficie_m2: 180,
     año: 2018,
     estado: "terminado",
     descripcion_corta:
       "Vivienda emplazada en un bosque de pinos sobre ladera. Estructura de madera, muros de quincha y techo verde con pasto Tifway.",
     destacado: true,
-    color_acento: "#5a7247",
-    imagen_principal: localImage(1003, "/images/proyectos/aguas-del-sol.jpg", "Aguas del Sol — techo verde"),
+    color_acento: "#4a6741",
+    imagen_principal: localImage(
+      1005,
+      "/images/proyectos/aguas-del-sol/main.jpg",
+      "Aguas del Sol — techo verde entre los pinos",
+      1920,
+      1080
+    ),
+    galeria: gallery(10050, [
+      ["/images/proyectos/aguas-del-sol/g1.jpg", "El techo verde visto desde la ladera", 1400, 1050],
+      ["/images/proyectos/aguas-del-sol/g2.jpg", "La cubierta ondulante entre los pinos", 1400, 788],
+      ["/images/proyectos/aguas-del-sol/g3.jpg", "La casa se esconde en el bosque", 1400, 788],
+      ["/images/proyectos/aguas-del-sol/g4.jpg", "Galería y muros de quincha", 1400, 788],
+      ["/images/proyectos/aguas-del-sol/g5.jpg", "Techo vivo y botellas en el muro", 640, 359],
+      ["/images/proyectos/aguas-del-sol/g6.jpg", "El acceso bajo el techo verde", 1400, 788],
+      ["/images/proyectos/aguas-del-sol/g7.jpg", "La terraza de madera del complejo", 1400, 1050],
+    ]),
     ficha_tecnica: [
       { id: 1, etiqueta: "Muros", valor: "Quincha con barro estabilizado" },
       { id: 2, etiqueta: "Estructura", valor: "Madera local" },
@@ -306,7 +447,162 @@ export const fallbackProyectos: Proyecto[] = [
     updatedAt: isoDate(2018, 3, 1),
   },
   {
-    id: 4,
+    id: 6,
+    documentId: "demo-rana-suite",
+    titulo: "Rana Suite",
+    slug: "rana-suite",
+    ubicacion: "Intiyaco, Valle de Calamuchita, Córdoba",
+    estado: "terminado",
+    descripcion_corta:
+      "Bio-suite compacta con techo vivo y deck elevado entre las sierras de Intiyaco. Tierra, madera y vidrio conectados con el entorno.",
+    destacado: false,
+    color_acento: "#7a9b6d",
+    imagen_principal: localImage(
+      1006,
+      "/images/proyectos/rana-suite/main.jpg",
+      "Rana Suite — bio-suite con techo vivo en Intiyaco",
+      1920,
+      1080
+    ),
+    galeria: gallery(10060, [
+      ["/images/proyectos/rana-suite/g1.jpg", "La cubierta viva vista desde arriba", 1200, 675],
+      ["/images/proyectos/rana-suite/g2.jpg", "El volumen sobre la ladera", 788, 1400],
+      ["/images/proyectos/rana-suite/g3.jpg", "Fachada norte con carpinterías de madera", 1400, 788],
+      ["/images/proyectos/rana-suite/g4.jpg", "Pérgola y techo verde", 1400, 788],
+      ["/images/proyectos/rana-suite/g5.jpg", "El acceso y la galería", 788, 1400],
+      ["/images/proyectos/rana-suite/g6.jpg", "Dormitorio con luz de la tarde", 1050, 1400],
+      ["/images/proyectos/rana-suite/g7.jpg", "Atardecer desde el deck", 1050, 1400],
+    ]),
+    ficha_tecnica: [
+      { id: 1, etiqueta: "Tipología", valor: "Bio-suite" },
+      { id: 2, etiqueta: "Estructura", valor: "Madera rolliza" },
+      { id: 3, etiqueta: "Cubierta", valor: "Techo vivo" },
+    ],
+    createdAt: isoDate(2022, 6, 1),
+    updatedAt: isoDate(2022, 6, 1),
+  },
+  {
+    id: 7,
+    documentId: "demo-hipocampo",
+    titulo: "Hipocampo",
+    slug: "hipocampo",
+    estado: "en_obra",
+    descripcion_corta:
+      "Vivienda de tierra y madera en etapa final de obra: aberturas orgánicas, entramados de madera a la vista y cubiertas livianas sobre el monte serrano.",
+    destacado: false,
+    color_acento: "#8b6f47",
+    imagen_principal: localImage(
+      1007,
+      "/images/proyectos/hipocampo/main.jpg",
+      "Hipocampo — la vivienda en el monte serrano",
+      1920,
+      1082
+    ),
+    galeria: gallery(10070, [
+      ["/images/proyectos/hipocampo/g1.jpg", "El volumen se recorta contra el monte", 1400, 789],
+      ["/images/proyectos/hipocampo/g2.jpg", "La casa bajo la tormenta de verano", 1400, 789],
+      ["/images/proyectos/hipocampo/g3.jpg", "Vista desde el camino, con las sierras de fondo", 1400, 789],
+      ["/images/proyectos/hipocampo/g4.jpg", "El paisaje del monte que rodea la obra", 1400, 789],
+      ["/images/proyectos/hipocampo/g5.jpg", "Detalle de la escalera exterior", 789, 1400],
+      ["/images/proyectos/hipocampo/g6.jpg", "Muros con aberturas orgánicas en obra", 789, 1400],
+      ["/images/proyectos/hipocampo/g7.jpg", "Entramado de madera de la envolvente", 789, 1400],
+      ["/images/proyectos/hipocampo/g8.jpg", "La vista hacia el valle", 789, 1400],
+    ]),
+    createdAt: isoDate(2025, 10, 1),
+    updatedAt: isoDate(2025, 10, 1),
+  },
+  {
+    id: 8,
+    documentId: "demo-ojo-de-perdiz",
+    titulo: "Ojo de Perdíz",
+    slug: "ojo-de-perdiz",
+    ubicacion: "B° Capilla Vieja, Los Reartes, Valle de Calamuchita",
+    superficie_m2: 132,
+    año: 2016,
+    estado: "terminado",
+    descripcion_corta:
+      "Refugio familiar sobre las Sierras Grandes, con el cerro Champaquí como postal hacia el oeste. Quincha, cubiertas colectoras de agua de lluvia y autonomía hídrica. Colaboración con el Arq. Máximo Garrone.",
+    descripcion: [
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "Asentada sobre las sierras grandes de Córdoba, cercana al río Los Reartes, esta vivienda se concibió como un lugar de descanso familiar: el punto de conexión con las sierras, donde el cerro Champaquí protagoniza la postal panorámica hacia el oeste.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "El entorno impone condiciones bioclimáticas exigentes: amplitudes térmicas de hasta 25 °C en pocas horas, inviernos bajo cero y veranos calurosos. La respuesta: tierra en los muros para amortiguar la temperatura, separación de las cubiertas para meter sol al espacio principal, y una geometría que desarma los patrones ortogonales para amalgamarse con los perfiles montañosos.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "El barrio carece de red de agua, por lo cual las cubiertas de techo se plantearon como superficies colectoras de agua pluvial — las precipitaciones anuales rondan los 800 mm. El agua se almacena en una cisterna subterránea que provee al tanque de reserva, acompañado de un colector solar para el agua caliente sanitaria. Las aguas residuales, diferenciadas en grises y negras, se tratan con filtros de áridos y fitodepuración.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [
+          {
+            text: "El sistema estructural es un esqueleto de postes de eucalipto — columnas, vigas de encadenado y cabios — flexible y dúctil según la normativa de sismo-resistencia (zona 1), completado con entramados de madera en dos direcciones que arman los muros de quincha.",
+          },
+        ],
+      },
+    ],
+    destacado: false,
+    color_acento: "#c4a050",
+    imagen_principal: localImage(
+      1008,
+      "/images/proyectos/casa-champaqui.jpg",
+      "Ojo de Perdíz — Los Reartes",
+      1600,
+      900
+    ),
+    ficha_tecnica: [
+      { id: 1, etiqueta: "Colaboración", valor: "Arq. Máximo Garrone" },
+      { id: 2, etiqueta: "Sistema constructivo", valor: "Quincha — esqueleto de eucalipto (zona sísmica 1)" },
+      { id: 3, etiqueta: "Cubierta", valor: "Invertida, colectora de agua de lluvia" },
+      { id: 4, etiqueta: "Agua", valor: "Cisterna subterránea + colector solar" },
+      { id: 5, etiqueta: "Superficie total", valor: "159 m²" },
+      { id: 6, etiqueta: "Superficie cubierta", valor: "132 m²" },
+      { id: 7, etiqueta: "Obra", valor: "Agosto 2015 – septiembre 2016" },
+    ],
+    createdAt: isoDate(2016, 9, 1),
+    updatedAt: isoDate(2016, 9, 1),
+  },
+  {
+    id: 9,
+    documentId: "demo-nina-huasi",
+    titulo: "Nina Huasi",
+    slug: "nina-huasi",
+    ubicacion: "Villa General Belgrano, Córdoba",
+    superficie_m2: 180,
+    año: 2020,
+    estado: "terminado",
+    descripcion_corta:
+      "Centro holístico octogonal de 9 m de diámetro con estructura de eucalipto y muros de quincha. Simbología comechingón integrada al diseño.",
+    destacado: false,
+    color_acento: "#4a6741",
+    imagen_principal: localImage(1009, "/images/proyectos/nina-huasi.jpg", "Nina Huasi — quincha octogonal"),
+    ficha_tecnica: [
+      { id: 1, etiqueta: "Estructura", valor: "Eucalipto rollizo (esqueleto octogonal)" },
+      { id: 2, etiqueta: "Muros", valor: "Quincha con arcilla y caña" },
+      { id: 3, etiqueta: "Cubierta", valor: "Madera + aislación natural" },
+      { id: 4, etiqueta: "Superficie cubierta", valor: "180 m²" },
+      { id: 5, etiqueta: "Superficie total", valor: "350 m²" },
+    ],
+    createdAt: isoDate(2020, 6, 1),
+    updatedAt: isoDate(2020, 6, 1),
+  },
+  {
+    id: 10,
     documentId: "demo-casa-cupulas",
     titulo: "Casa de Cúpulas",
     slug: "casa-de-cupulas",
@@ -318,7 +614,7 @@ export const fallbackProyectos: Proyecto[] = [
       "Construcción de cúpulas con tierra estabilizada al 10 % de cemento. Volúmenes orgánicos integrados al paisaje serrano.",
     destacado: false,
     color_acento: "#6b5b3e",
-    imagen_principal: localImage(1004, "/images/proyectos/cupulas.jpg", "Casa de Cúpulas — Inti Yaco"),
+    imagen_principal: localImage(1010, "/images/proyectos/cupulas.jpg", "Casa de Cúpulas — Inti Yaco"),
     ficha_tecnica: [
       { id: 1, etiqueta: "Sistema", valor: "Tierra estabilizada (10 % cemento)" },
       { id: 2, etiqueta: "Tipología", valor: "Cúpulas / bóvedas autoportantes" },
@@ -328,44 +624,85 @@ export const fallbackProyectos: Proyecto[] = [
     updatedAt: isoDate(2014, 5, 1),
   },
   {
-    id: 5,
-    documentId: "demo-adelia",
-    titulo: "Casa en Adelia María",
-    slug: "casa-adelia-maria",
-    ubicacion: "Adelia María, Córdoba",
-    superficie_m2: 165,
-    año: 2022,
-    estado: "terminado",
+    id: 11,
+    documentId: "demo-tortuga",
+    titulo: "Tortuga — Faro del Mundo",
+    slug: "tortuga-faro-del-mundo",
+    estado: "en_obra",
     descripcion_corta:
-      "Residencia familiar en estancia de la pampa rural. Diseño bioclimático con materiales y mano de obra de la zona.",
+      "Vivienda de quincha en construcción: esqueleto de madera, entramados en dos direcciones y muros de barro. Una obra bio-construida con una huella de carbono cerca de un 80 % menor que la convencional.",
     destacado: false,
-    color_acento: "#7a9b6d",
-    imagen_principal: localImage(1005, "/images/proyectos/casa-adelia-maria.jpg", "Casa en Adelia María"),
-    createdAt: isoDate(2022, 1, 1),
-    updatedAt: isoDate(2022, 1, 1),
+    color_acento: "#9b7a4f",
+    imagen_principal: localImage(
+      1011,
+      "/images/proyectos/tortuga-faro-del-mundo/main.jpg",
+      "Tortuga — muros de quincha en obra",
+      1200,
+      675
+    ),
+    galeria: gallery(10110, [
+      ["/images/proyectos/tortuga-faro-del-mundo/g1.jpg", "Levantando los muros de quincha", 1200, 675],
+      ["/images/proyectos/tortuga-faro-del-mundo/g2.jpg", "El esqueleto de madera sobre la roca", 1400, 1050],
+      ["/images/proyectos/tortuga-faro-del-mundo/g3.jpg", "Diseños en técnicas de quincha", 1400, 1400],
+      ["/images/proyectos/tortuga-faro-del-mundo/g4.jpg", "Aberturas triangulares desde el interior", 1400, 788],
+      ["/images/proyectos/tortuga-faro-del-mundo/g5.jpg", "La luz entra por los ventanales en obra", 1400, 788],
+      ["/images/proyectos/tortuga-faro-del-mundo/g6.jpg", "El barro sobre el entramado de madera", 700, 1400],
+    ]),
+    createdAt: isoDate(2025, 6, 1),
+    updatedAt: isoDate(2025, 6, 1),
   },
   {
-    id: 6,
-    documentId: "demo-champaqui",
-    titulo: "Casa Champaquí",
-    slug: "casa-champaqui",
-    ubicacion: "Los Reartes, Valle de Calamuchita",
-    superficie_m2: 132,
-    año: 2016,
-    estado: "terminado",
+    id: 12,
+    documentId: "demo-baguales",
+    titulo: "Baguales",
+    slug: "baguales",
+    estado: "en_obra",
     descripcion_corta:
-      "Madera, piedra, fibras y tierra. 132 m² cubiertos + 27 m² semicubiertos. Colaboración con Estudio Garrone.",
+      "Esqueleto de madera y cubierta en avance sobre un afloramiento rocoso, entre pinares de las sierras. La estructura ya dibuja la silueta de la futura vivienda de tierra.",
     destacado: false,
-    color_acento: "#c4a050",
-    imagen_principal: localImage(1006, "/images/proyectos/casa-champaqui.jpg", "Casa Champaquí — Los Reartes"),
-    ficha_tecnica: [
-      { id: 1, etiqueta: "Materiales", valor: "Madera, piedra, fibras vegetales, tierra" },
-      { id: 2, etiqueta: "Superficie cubierta", valor: "132 m²" },
-      { id: 3, etiqueta: "Superficie total", valor: "159 m²" },
-      { id: 4, etiqueta: "Colaboración", valor: "Estudio Garrone" },
-    ],
-    createdAt: isoDate(2016, 8, 1),
-    updatedAt: isoDate(2016, 8, 1),
+    color_acento: "#6b5b3e",
+    imagen_principal: localImage(
+      1012,
+      "/images/proyectos/baguales/main.jpg",
+      "Baguales — estructura de madera en obra",
+      1920,
+      1080
+    ),
+    galeria: gallery(10120, [
+      ["/images/proyectos/baguales/g1.jpg", "La cubierta toma forma entre los pinos", 1400, 788],
+      ["/images/proyectos/baguales/g2.jpg", "Esqueleto y entramados de madera", 1400, 788],
+      ["/images/proyectos/baguales/g3.jpg", "La obra sobre el afloramiento rocoso", 1400, 788],
+      ["/images/proyectos/baguales/g4.jpg", "El volumen contra el cielo serrano", 1400, 788],
+      ["/images/proyectos/baguales/g5.jpg", "La estructura vista desde el bosque", 1400, 788],
+    ]),
+    createdAt: isoDate(2025, 8, 1),
+    updatedAt: isoDate(2025, 8, 1),
+  },
+  {
+    id: 13,
+    documentId: "demo-crisalida",
+    titulo: "Crisálida — Umepay",
+    slug: "crisalida-umepay",
+    ubicacion: "Umepay, Valle de Calamuchita, Córdoba",
+    estado: "en_obra",
+    descripcion_corta:
+      "«Crisálida en formación»: la estructura de madera que anticipa una vivienda de tierra en Umepay.",
+    destacado: false,
+    color_acento: "#7a9b6d",
+    imagen_principal: localImage(
+      1013,
+      "/images/proyectos/crisalida-umepay/main.jpg",
+      "Crisálida — estructura de madera en obra en Umepay",
+      1920,
+      1080
+    ),
+    galeria: gallery(10130, [
+      ["/images/proyectos/crisalida-umepay/g1.jpg", "La estructura entre las sierras", 1400, 788],
+      ["/images/proyectos/crisalida-umepay/g2.jpg", "Entramados de madera de la crisálida", 1400, 788],
+      ["/images/proyectos/crisalida-umepay/g3.jpg", "La obra vista desde el bosque", 788, 1400],
+    ]),
+    createdAt: isoDate(2025, 9, 1),
+    updatedAt: isoDate(2025, 9, 1),
   },
 ];
 
@@ -765,7 +1102,7 @@ export const fallbackNosotros: PaginaNosotros = {
   hitos: [
     { id: 1, año: "2010", titulo: "Fundación del estudio", descripcion: "Christian Lico e Ignacio Serrallonga abren el estudio en Villa General Belgrano." },
     { id: 2, año: "2014", titulo: "Casa de Cúpulas", descripcion: "Publicación en ArchDaily. Primera obra con técnica de cúpulas en tierra estabilizada." },
-    { id: 3, año: "2016", titulo: "Casa Champaquí", descripcion: "Colaboración con Estudio Garrone en Los Reartes — 132 m² en madera, piedra, fibras y tierra." },
+    { id: 3, año: "2016", titulo: "Ojo de Perdíz", descripcion: "Refugio familiar en Los Reartes con el Arq. Máximo Garrone — 132 m² de quincha con vistas al Champaquí. El mismo año se termina la Suite del Arroyo en el complejo La Anita." },
     { id: 4, año: "2018", titulo: "Aguas del Sol", descripcion: "Vivienda de 180 m² en Inti Yaco con techo verde extensivo." },
     { id: 5, año: "2019", titulo: "1.º Premio Red ProTierra", descripcion: "Por la Vivienda Tunduqueral en Uspallata, Mendoza — quincha sismo-resistente." },
     { id: 6, año: "2020", titulo: "Nina Huasi", descripcion: "Centro holístico octogonal en quincha — 180 m² cubiertos sobre 350 m² de superficie total." },
