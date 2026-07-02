@@ -102,8 +102,9 @@ interface RichTextProps {
 
 export default function RichText({ content, className }: RichTextProps) {
   if (!content || !Array.isArray(content) || content.length === 0) return null;
+  const cls = ["prose", className].filter(Boolean).join(" ");
   return (
-    <div className={className}>
+    <div className={cls}>
       {(content as unknown as Block[]).map((b, i) => renderBlock(b, i))}
     </div>
   );
