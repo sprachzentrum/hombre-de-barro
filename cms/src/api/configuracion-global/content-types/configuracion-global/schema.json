@@ -35,6 +35,52 @@
     "direccion": {
       "type": "string"
     },
+    "proyectos_titulo": {
+      "type": "string",
+      "default": "Obras que respiran"
+    },
+    "proyectos_intro": {
+      "type": "text"
+    },
+    "biblioteca_titulo": {
+      "type": "string",
+      "default": "Guías, planos y artículos de construcción natural"
+    },
+    "biblioteca_intro": {
+      "type": "text"
+    },
+    "blog_titulo": {
+      "type": "string",
+      "default": "Noticias, talleres, ideas"
+    },
+    "comparador_titulo": {
+      "type": "string",
+      "default": "Convencional vs. Sustentable: los números"
+    },
+    "comparador_intro": {
+      "type": "text"
+    },
+    "contacto_titulo": {
+      "type": "string",
+      "default": "Empecemos a construir juntos"
+    },
+    "contacto_intro": {
+      "type": "text"
+    },
+    "contacto_form_titulo": {
+      "type": "string",
+      "default": "Escribinos por WhatsApp"
+    },
+    "contacto_form_texto": {
+      "type": "text"
+    },
+    "contacto_preparado_titulo": {
+      "type": "string",
+      "default": "¡Mensaje preparado! 🌱"
+    },
+    "contacto_preparado_texto": {
+      "type": "text"
+    },
     "whatsapp": {
       "type": "string",
       "description": "Número con código de país, sin + (ej. \"5493546464383\")"

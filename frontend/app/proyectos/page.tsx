@@ -1,6 +1,6 @@
 import FadeIn from "@/components/ui/FadeIn";
 import ProyectoFilter from "@/components/proyectos/ProyectoFilter";
-import { getProyectos } from "@/app/lib/content";
+import { getConfig, getProyectos } from "@/app/lib/content";
 
 export const revalidate = 60;
 
@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function ProyectosPage() {
-  const proyectos = await getProyectos();
+  const [proyectos, config] = await Promise.all([getProyectos(), getConfig()]);
 
   return (
     <section
@@ -24,7 +24,9 @@ export default async function ProyectosPage() {
       <FadeIn>
         <header style={{ textAlign: "center", marginBottom: 44 }}>
           <span className="eyebrow">Proyectos</span>
-          <h1 className="section-title">Obras que respiran</h1>
+          <h1 className="section-title">
+            {config.proyectos_titulo ?? "Obras que respiran"}
+          </h1>
           <div className="divider" />
           <p
             style={{
@@ -35,8 +37,8 @@ export default async function ProyectosPage() {
               lineHeight: 1.7,
             }}
           >
-            Casas, refugios y espacios proyectados con tierra cruda y materiales
-            nobles. Cada obra es un diálogo con su terreno, su clima y su gente.
+            {config.proyectos_intro ??
+              "Casas, refugios y espacios proyectados con tierra cruda y materiales nobles."}
           </p>
         </header>
       </FadeIn>

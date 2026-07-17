@@ -13,25 +13,11 @@ module.exports = {
       script: 'npm',
       args: 'start',
       max_memory_restart: '600M',
+      // Database credentials and Strapi secrets are loaded from cms/.env.
       env: {
         NODE_ENV: 'production',
         HOST: '127.0.0.1',
         PORT: 1337,
-        // ── PostgreSQL (recommended for prod) ─────────────────
-        DATABASE_CLIENT: 'postgres',
-        DATABASE_HOST: '127.0.0.1',
-        DATABASE_PORT: 5432,
-        DATABASE_NAME: 'hombredebarro',
-        DATABASE_USERNAME: 'strapi',
-        DATABASE_PASSWORD: 'CHANGE_ME',
-        DATABASE_SSL: 'false',
-        // ── Secrets — generate with `openssl rand -base64 16` ─
-        APP_KEYS: 'CHANGE_ME,CHANGE_ME,CHANGE_ME,CHANGE_ME',
-        API_TOKEN_SALT: 'CHANGE_ME',
-        ADMIN_JWT_SECRET: 'CHANGE_ME',
-        TRANSFER_TOKEN_SALT: 'CHANGE_ME',
-        JWT_SECRET: 'CHANGE_ME',
-        ENCRYPTION_KEY: 'CHANGE_ME',
       },
     },
     {
@@ -40,18 +26,12 @@ module.exports = {
       script: 'npm',
       args: 'start',
       max_memory_restart: '500M',
+      // Strapi URLs and tokens are loaded from frontend/.env.production.
+      // NEXT_PUBLIC_* values must be present before `npm run build`.
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
         HOSTNAME: '127.0.0.1',
-        // Strapi reachable on loopback (same VPS)
-        STRAPI_URL: 'http://127.0.0.1:1337',
-        // Public URL (used for media + canonical URLs)
-        NEXT_PUBLIC_STRAPI_URL: 'https://hombredebarro.com',
-        NEXT_PUBLIC_SITE_URL: 'https://hombredebarro.com',
-        // Generated from Strapi admin → Settings → API Tokens
-        STRAPI_API_TOKEN: 'CHANGE_ME',
-        REVALIDATE_SECRET: 'CHANGE_ME',
       },
     },
   ],

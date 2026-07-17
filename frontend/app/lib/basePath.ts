@@ -12,8 +12,9 @@
  * (set by next.config.ts when running in production).
  */
 export const BASE_PATH: string =
-  process.env.NEXT_PUBLIC_BASE_PATH ??
-  (process.env.NODE_ENV === "production" ? "/hombredebarro" : "");
+  process.env.NEXT_PUBLIC_BASE_PATH?.trim()
+    ? `/${process.env.NEXT_PUBLIC_BASE_PATH.trim().replace(/^\/+|\/+$/g, "")}`
+    : "";
 
 export function assetPath(path: string): string {
   if (!path) return path;

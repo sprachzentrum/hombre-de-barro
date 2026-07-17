@@ -30,7 +30,7 @@ export interface CalcResult {
   ahorroMensual: number;
   ahorroAnual: number;
   /** Año en que sustentable acumula menos que convencional (>= 0) */
-  breakEvenYear: number;
+  breakEvenYear: number | null;
   /** CO₂ en toneladas */
   co2Trad: number;
   co2Sust: number;
@@ -85,10 +85,10 @@ export function calcCosts(
   for (let y = 1; y <= 30; y++) {
     const tradAdd =
       (tradMensual * 12 + tradMantAnual) *
-      Math.pow(1 + p.inflacion_total_conv, y);
+      Math.pow(1 + p.inflacion_total_conv, y - 1);
     const sustAdd =
       (sustMensual * 12 + sustMantAnual) *
-      Math.pow(1 + p.inflacion_total_sust, y);
+      Math.pow(1 + p.inflacion_total_sust, y - 1);
     cumTrad += tradAdd;
     cumSust += sustAdd;
     amortSeries.push({
@@ -113,11 +113,10 @@ export function calcCosts(
   }
 
   // Break-even — first year sustentable ≤ convencional
-  let breakEvenYear = 0;
-  for (let i = 0; i < amortSeries.length; i++) {
-    if (amortSeries[i].Sustentable < amortSeries[i].Convencional) {
+  let breakEvenYear: number | null = sustTotal <= tradTotal ? 0 : null;
+  for (let i = 1; breakEvenYear === null && i < amortSeries.length; i++) {
+    if (amortSeries[i].Sustentable <= amortSeries[i].Convencional) {
       breakEvenYear = i;
-      break;
     }
   }
 

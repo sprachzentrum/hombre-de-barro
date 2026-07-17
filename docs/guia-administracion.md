@@ -173,19 +173,29 @@ Tanto los proyectos como los artículos y el blog usan el **Blocks Editor** de S
 
 ---
 
-## 10. Ver las consultas recibidas
+## 10. Consultas desde la web
 
-Cuando alguien usa el formulario de contacto, se guarda como una entrada en:
+El formulario prepara un mensaje y abre WhatsApp. La persona todavía debe
+confirmar el envío dentro de WhatsApp.
 
-**Content Manager** → **Consultas recibidas**
+- El número se toma de **Configuración Global → WhatsApp**.
+- La consulta no se guarda automáticamente en Strapi.
+- Tampoco se envía un email automático.
 
-Allí podés ver:
-- Nombre, email, teléfono
-- Tipo de consulta (vivienda, techo verde, etc.)
-- Mensaje
-- Estado **leído** ✅ — marcalo cuando hayas respondido
+El tipo **Consultas recibidas** queda reservado para una integración futura con
+email o un sistema CRM; actualmente no se completa desde el formulario público.
 
-> Las consultas también llegan por email al `info@hombredebarro.com`. Acá quedan archivadas como respaldo.
+### Qué textos se pueden editar
+
+- **Página de inicio:** títulos, introducciones, estadísticas, servicios y CTA.
+- **Nosotros:** título, subtítulo, historia, principios e hitos.
+- **Proyectos, biblioteca y blog:** títulos y cuerpos de cada entrada.
+- **Configuración Global:** datos de contacto, redes, descripción, logos, imagen
+  para compartir y encabezados de Proyectos, Biblioteca, Blog, Comparador y
+  Contacto.
+
+Los nombres de navegación y las etiquetas de filtros son textos de interfaz y
+todavía se modifican en el código, no desde Strapi.
 
 ---
 

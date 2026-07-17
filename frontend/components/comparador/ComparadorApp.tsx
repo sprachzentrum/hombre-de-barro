@@ -33,6 +33,8 @@ const TABS: { id: TabId; label: string }[] = [
 
 interface ComparadorAppProps {
   params: ComparadorParametros;
+  title?: string;
+  intro?: string;
 }
 
 function DualMoney({ ars, tc, sub }: { ars: number; tc: number; sub?: string }) {
@@ -45,7 +47,7 @@ function DualMoney({ ars, tc, sub }: { ars: number; tc: number; sub?: string }) 
   );
 }
 
-export default function ComparadorApp({ params }: ComparadorAppProps) {
+export default function ComparadorApp({ params, title, intro }: ComparadorAppProps) {
   const [m2, setM2] = useState(100);
   const [tipoCambio, setTipoCambio] = useState(params.tipo_cambio_default);
   const [autoconstruccion, setAutoconstruccion] = useState(false);
@@ -113,12 +115,12 @@ export default function ComparadorApp({ params }: ComparadorAppProps) {
             Comparador Interactivo
           </span>
           <h1 className={styles.title}>
-            Convencional vs. Sustentable: <em>los números</em>
+            {title ?? "Convencional vs. Sustentable: los números"}
           </h1>
           <div className={styles.divider} />
           <p className={styles.lead}>
-            Movés la superficie y el tipo de cambio. El cálculo se actualiza
-            con datos reales de Córdoba 2026.
+            {intro ??
+              "Movés la superficie y el tipo de cambio. El cálculo se actualiza con los parámetros cargados por el estudio."}
           </p>
         </header>
 
@@ -236,9 +238,9 @@ export default function ComparadorApp({ params }: ComparadorAppProps) {
           <div className={styles.metricCard}>
             <div className={styles.metricLabel}>Punto de equilibrio</div>
             <div className={styles.metricArs} style={{ color: "#8bc4e8" }}>
-              {c.tradTotal > c.sustTotal
+              {c.tradTotal >= c.sustTotal
                 ? "Inmediato"
-                : c.breakEvenYear > 0
+                : c.breakEvenYear !== null
                   ? `Año ${c.breakEvenYear}`
                   : "—"}
             </div>
@@ -323,11 +325,11 @@ export default function ComparadorApp({ params }: ComparadorAppProps) {
                   <Legend wrapperStyle={{ fontSize: 11, color: "rgba(244,240,232,.5)" }} />
                 </AreaChart>
               </ResponsiveContainer>
-              {c.tradTotal > c.sustTotal ? (
+              {c.tradTotal >= c.sustTotal ? (
                 <div className={styles.breakEven}>
                   ✦ La sustentable cuesta menos <strong>desde el día 1</strong>.
                 </div>
-              ) : c.breakEvenYear > 0 ? (
+              ) : c.breakEvenYear !== null ? (
                 <div className={styles.breakEven}>
                   ✦ La sustentable se vuelve más económica desde el{" "}
                   <strong>año {c.breakEvenYear}</strong>.

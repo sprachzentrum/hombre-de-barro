@@ -1,6 +1,6 @@
 import FadeIn from "@/components/ui/FadeIn";
 import BibliotecaFilter from "@/components/biblioteca/BibliotecaFilter";
-import { getArticulos, getCategoriasBiblioteca } from "@/app/lib/content";
+import { getArticulos, getCategoriasBiblioteca, getConfig } from "@/app/lib/content";
 
 export const revalidate = 60;
 
@@ -16,9 +16,10 @@ interface PageProps {
 
 export default async function BibliotecaPage({ searchParams }: PageProps) {
   const { categoria } = await searchParams;
-  const [articulos, categorias] = await Promise.all([
+  const [articulos, categorias, config] = await Promise.all([
     getArticulos(),
     getCategoriasBiblioteca(),
+    getConfig(),
   ]);
 
   return (
@@ -33,8 +34,8 @@ export default async function BibliotecaPage({ searchParams }: PageProps) {
         <header style={{ textAlign: "center", marginBottom: 44 }}>
           <span className="eyebrow">Biblioteca Técnica</span>
           <h1 className="section-title">
-            Guías, planos y artículos de{" "}
-            <em style={{ color: "var(--verde-bosque)" }}>construcción natural</em>
+            {config.biblioteca_titulo ??
+              "Guías, planos y artículos de construcción natural"}
           </h1>
           <div className="divider" />
           <p
@@ -46,8 +47,8 @@ export default async function BibliotecaPage({ searchParams }: PageProps) {
               lineHeight: 1.7,
             }}
           >
-            Conocimiento abierto para quien quiera construir con la tierra. Planos
-            descargables, guías paso a paso y fundamentos del diseño sustentable.
+            {config.biblioteca_intro ??
+              "Conocimiento abierto para quien quiera construir con la tierra."}
           </p>
         </header>
       </FadeIn>

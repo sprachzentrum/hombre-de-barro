@@ -8,11 +8,12 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import "./globals.css";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getConfig();
-  const ogImage = mediaUrl(config.og_image?.url) ?? `${SITE_URL}/og-default.png`;
+  const ogImage =
+    mediaUrl(config.og_image?.url) ?? `${SITE_URL}/images/hero.jpg`;
   const description =
     config.descripcion_corta ??
     "Estudio de bioarquitectura en Villa General Belgrano, Córdoba. Adobe, quincha, techos verdes y diseño bioclimático.";
@@ -37,9 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
       title: config.nombre_estudio,
       description,
       images: [ogImage],
-    },
-    icons: {
-      icon: "/favicon.ico",
     },
   };
 }

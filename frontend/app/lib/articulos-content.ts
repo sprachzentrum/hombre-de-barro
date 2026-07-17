@@ -36,11 +36,6 @@ const ol = (...items: string[]): Block => ({
   })),
 });
 
-const q = (text: string): Block => ({
-  type: "quote",
-  children: [{ text }],
-});
-
 export const ARTICULO_CONTENT: Record<string, Block[]> = {
   /* ── Muros y Estructura ─────────────────────────────────── */
   "adobe-paso-a-paso": [

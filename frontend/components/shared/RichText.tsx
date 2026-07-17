@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { mediaUrl } from "@/app/lib/strapi";
+import { mediaUrl, safeHref } from "@/app/lib/strapi";
 import type { BlocksContent } from "@/app/lib/types";
 
 interface Block {
@@ -31,8 +31,18 @@ interface TextNode {
 
 function renderText(node: TextNode, i: number): ReactNode {
   if (node.type === "link" && node.children) {
+    const href = safeHref(node.url);
+    if (!href) {
+      return <span key={i}>{node.children.map(renderText)}</span>;
+    }
+    const external = href.startsWith("http://") || href.startsWith("https://");
     return (
-      <a key={i} href={node.url} target="_blank" rel="noopener noreferrer">
+      <a
+        key={i}
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+      >
         {node.children.map(renderText)}
       </a>
     );

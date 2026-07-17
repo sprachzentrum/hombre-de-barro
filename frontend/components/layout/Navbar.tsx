@@ -28,23 +28,20 @@ export default function Navbar({
 }: NavbarProps) {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
+  const [homeScrolled, setHomeScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const scrolled = !isHome || homeScrolled;
 
   useEffect(() => {
-    if (!isHome) {
-      setScrolled(true);
-      return;
-    }
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
+    if (!isHome) return;
+    const onScroll = () => setHomeScrolled(window.scrollY > 80);
+    const frame = window.requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [isHome]);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);

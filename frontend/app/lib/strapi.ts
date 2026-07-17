@@ -68,6 +68,35 @@ export async function fetchCollection<T>(
   return strapiFetch<StrapiCollectionResponse<T>>(path, options);
 }
 
+/** Fetches every page of a Strapi collection without relying on the API's
+ * default 25-item page size. The server-side maxLimit is currently 100. */
+export async function fetchAllCollection<T>(
+  path: string,
+  options: FetchOptions = {}
+): Promise<StrapiCollectionResponse<T>> {
+  const pageSize = 100;
+  const data: T[] = [];
+  let page = 1;
+  let pageCount = 1;
+  let lastMeta: StrapiCollectionResponse<T>["meta"];
+
+  do {
+    const response = await fetchCollection<T>(path, {
+      ...options,
+      query: {
+        ...options.query,
+        pagination: { page, pageSize },
+      },
+    });
+    data.push(...(response.data ?? []));
+    lastMeta = response.meta;
+    pageCount = response.meta?.pagination?.pageCount ?? 1;
+    page += 1;
+  } while (page <= pageCount);
+
+  return { data, meta: lastMeta };
+}
+
 export async function fetchSingle<T>(
   path: string,
   options?: FetchOptions
@@ -80,13 +109,30 @@ export async function fetchSingle<T>(
    This helper prepends the public Strapi host. */
 export function mediaUrl(url: string | null | undefined): string | null {
   if (!url) return null;
-  if (url.startsWith("http")) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
   // Strapi uploads live under /uploads/* and must be prefixed with the
   // Strapi host.
   if (url.startsWith("/uploads/")) return `${PUBLIC_STRAPI_URL}${url}`;
   // Local public/* asset — prepend basePath so Next's image optimizer
   // can resolve it under `/hombredebarro/...` in production.
   return assetPath(url);
+}
+
+/** Allows only web, email, telephone and same-site relative links from CMS data. */
+export function safeHref(url: string | null | undefined): string | null {
+  const value = url?.trim();
+  if (!value) return null;
+  if (value.startsWith("/") && !value.startsWith("//")) return value;
+  if (value.startsWith("#")) return value;
+
+  try {
+    const parsed = new URL(value);
+    return ["http:", "https:", "mailto:", "tel:"].includes(parsed.protocol)
+      ? value
+      : null;
+  } catch {
+    return null;
+  }
 }
 
 /* ── Best-format helper for responsive images ─────────────────────

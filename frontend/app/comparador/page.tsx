@@ -1,5 +1,5 @@
 import ComparadorApp from "@/components/comparador/ComparadorApp";
-import { getComparadorParams } from "@/app/lib/content";
+import { getComparadorParams, getConfig } from "@/app/lib/content";
 
 export const revalidate = 60;
 
@@ -10,6 +10,12 @@ export const metadata = {
 };
 
 export default async function ComparadorPage() {
-  const params = await getComparadorParams();
-  return <ComparadorApp params={params} />;
+  const [params, config] = await Promise.all([getComparadorParams(), getConfig()]);
+  return (
+    <ComparadorApp
+      params={params}
+      title={config.comparador_titulo}
+      intro={config.comparador_intro}
+    />
+  );
 }
