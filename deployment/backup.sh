@@ -9,6 +9,7 @@ DATE=$(date +%Y%m%d-%H%M)
 BACKUP_DIR="/var/backups/hombredebarro"
 DB_NAME="hombredebarro"
 DB_USER="strapi"
+DB_HOST="127.0.0.1"
 UPLOADS_DIR="/var/www/hombredebarro/cms/public/uploads"
 RETENTION_DAYS=30
 
@@ -16,7 +17,7 @@ mkdir -p "$BACKUP_DIR"
 
 # ── PostgreSQL dump ──────────────────────────────────────────────
 pg_dump --no-owner --no-privileges --clean --if-exists \
-  -U "$DB_USER" "$DB_NAME" \
+  -h "$DB_HOST" -U "$DB_USER" "$DB_NAME" \
   | gzip > "$BACKUP_DIR/db_${DATE}.sql.gz"
 
 # ── Uploads archive ──────────────────────────────────────────────

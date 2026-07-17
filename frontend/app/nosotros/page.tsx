@@ -3,7 +3,7 @@ import FadeIn from "@/components/ui/FadeIn";
 import Button from "@/components/ui/Button";
 import RichText from "@/components/shared/RichText";
 import { getEquipo, getNosotros } from "@/app/lib/content";
-import { imageFor } from "@/app/lib/strapi";
+import { imageFor, safeHref } from "@/app/lib/strapi";
 
 export const revalidate = 60;
 
@@ -207,6 +207,8 @@ export default async function NosotrosPage() {
           >
             {equipo.map((m, i) => {
               const foto = imageFor(m.foto, "medium");
+              const instagram = safeHref(m.instagram);
+              const linkedin = safeHref(m.linkedin);
               return (
                 <FadeIn key={m.id} delay={i * 0.1}>
                   <div
@@ -272,7 +274,7 @@ export default async function NosotrosPage() {
                       >
                         <RichText content={m.bio} />
                       </div>
-                      {(m.instagram || m.linkedin || m.email) && (
+                      {(instagram || linkedin || m.email) && (
                         <div
                           style={{
                             display: "flex",
@@ -281,11 +283,11 @@ export default async function NosotrosPage() {
                             fontSize: 13,
                           }}
                         >
-                          {m.instagram && (
-                            <a href={m.instagram} target="_blank" rel="noopener noreferrer">📸</a>
+                          {instagram && (
+                            <a href={instagram} target="_blank" rel="noopener noreferrer">📸</a>
                           )}
-                          {m.linkedin && (
-                            <a href={m.linkedin} target="_blank" rel="noopener noreferrer">💼</a>
+                          {linkedin && (
+                            <a href={linkedin} target="_blank" rel="noopener noreferrer">💼</a>
                           )}
                           {m.email && <a href={`mailto:${m.email}`}>📧</a>}
                         </div>

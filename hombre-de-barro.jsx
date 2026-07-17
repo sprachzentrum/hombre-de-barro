@@ -75,8 +75,8 @@ function calcCosts(m2) {
   const amort = [];
   let tA = tT, sA = sT;
   for (let y = 0; y <= 30; y++) {
-    tA += y > 0 ? (tE * 12 + tW * 12 + tM) * Math.pow(1.03, y) : 0;
-    sA += y > 0 ? (sE * 12 + sW * 12 + sM) * Math.pow(1.01, y) : 0;
+    tA += y > 0 ? (tE * 12 + tW * 12 + tM) * Math.pow(1.03, y - 1) : 0;
+    sA += y > 0 ? (sE * 12 + sW * 12 + sM) * Math.pow(1.01, y - 1) : 0;
     amort.push({ año: y, Convencional: Math.round(tA), Sustentable: Math.round(sA) });
   }
   const eData = [];
@@ -134,6 +134,23 @@ export default function App() {
   }, []);
 
   const goTo = id => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+  const sendContact = event => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const message = [
+      `Hola, soy ${data.get("nombre") || ""}.`,
+      `Teléfono: ${data.get("telefono") || "—"}`,
+      `Email: ${data.get("email") || "—"}`,
+      `Interés: ${data.get("interes") || "Consulta general"}`,
+      "",
+      data.get("mensaje") || "",
+    ].join("\n");
+    window.open(
+      `https://wa.me/5493546464383?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
   const filtered = useMemo(() => ARTICLES.filter(a => (activeCat === "todos" || a.cat === activeCat) && (!searchQ || (a.title + a.desc).toLowerCase().includes(searchQ.toLowerCase()))), [activeCat, searchQ]);
   const c = useMemo(() => calcCosts(m2), [m2]);
 
@@ -552,16 +569,16 @@ export default function App() {
           <Fade delay={.15}>
             <div style={{ background: "#fff", borderRadius: 18, padding: 30, border: "1px solid #e8e2d6" }}>
               <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, marginBottom: 18 }}>Escribinos</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}><input className="ci" placeholder="Nombre" /><input className="ci" placeholder="Teléfono" /></div>
-                <input className="ci" placeholder="Email" />
-                <select className="ci" defaultValue="" style={{ color: "#b0a898" }}>
+              <form onSubmit={sendContact} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}><input className="ci" name="nombre" placeholder="Nombre" required /><input className="ci" name="telefono" placeholder="Teléfono" /></div>
+                <input className="ci" name="email" type="email" placeholder="Email" required />
+                <select className="ci" name="interes" defaultValue="" style={{ color: "#b0a898" }}>
                   <option value="" disabled>¿Qué te interesa?</option>
                   <option>Vivienda en tierra cruda</option><option>Techo verde</option><option>Reforma sustentable</option><option>Asesoría bioclimática</option><option>Otro</option>
                 </select>
-                <textarea className="ci" placeholder="Contanos tu proyecto..." rows={3} style={{ resize: "vertical" }} />
-                <button className="btn bp" style={{ width: "100%", justifyContent: "center" }}>Enviar Consulta →</button>
-              </div>
+                <textarea className="ci" name="mensaje" placeholder="Contanos tu proyecto..." rows={3} style={{ resize: "vertical" }} required />
+                <button type="submit" className="btn bp" style={{ width: "100%", justifyContent: "center" }}>Preparar en WhatsApp →</button>
+              </form>
             </div>
           </Fade>
         </div>

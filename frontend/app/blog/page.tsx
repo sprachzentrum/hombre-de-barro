@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
-import { getCategoriasBlog, getEntradas } from "@/app/lib/content";
+import { getCategoriasBlog, getConfig, getEntradas } from "@/app/lib/content";
 import { imageFor } from "@/app/lib/strapi";
 
 export const revalidate = 60;
@@ -26,9 +26,10 @@ interface PageProps {
 
 export default async function BlogPage({ searchParams }: PageProps) {
   const { categoria } = await searchParams;
-  const [entradas, categorias] = await Promise.all([
+  const [entradas, categorias, config] = await Promise.all([
     getEntradas(),
     getCategoriasBlog(),
+    getConfig(),
   ]);
 
   const filtered = categoria
@@ -46,7 +47,9 @@ export default async function BlogPage({ searchParams }: PageProps) {
       <FadeIn>
         <header style={{ textAlign: "center", marginBottom: 36 }}>
           <span className="eyebrow">Blog</span>
-          <h1 className="section-title">Noticias, talleres, ideas</h1>
+          <h1 className="section-title">
+            {config.blog_titulo ?? "Noticias, talleres, ideas"}
+          </h1>
           <div className="divider" />
         </header>
       </FadeIn>

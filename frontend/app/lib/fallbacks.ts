@@ -22,6 +22,25 @@ export const fallbackConfig: ConfiguracionGlobal = {
   telefono: "(03546) 464383",
   email: "info@hombredebarro.com",
   direccion: "Río Paraná 786, X5194 Villa Gral. Belgrano, Córdoba",
+  proyectos_titulo: "Obras que respiran",
+  proyectos_intro:
+    "Casas, refugios y espacios proyectados con tierra cruda y materiales nobles. Cada obra es un diálogo con su terreno, su clima y su gente.",
+  biblioteca_titulo: "Guías, planos y artículos de construcción natural",
+  biblioteca_intro:
+    "Conocimiento abierto para quien quiera construir con la tierra. Planos descargables, guías paso a paso y fundamentos del diseño sustentable.",
+  blog_titulo: "Noticias, talleres, ideas",
+  comparador_titulo: "Convencional vs. Sustentable: los números",
+  comparador_intro:
+    "Movés la superficie y el tipo de cambio. El cálculo se actualiza con los parámetros cargados por el estudio.",
+  contacto_titulo: "Empecemos a construir juntos",
+  contacto_intro:
+    "Trabajamos en todo el país. Respondemos en 48 hs hábiles.",
+  contacto_form_titulo: "Escribinos por WhatsApp",
+  contacto_form_texto:
+    "Completá los datos y te abrimos WhatsApp con tu mensaje listo para enviar.",
+  contacto_preparado_titulo: "¡Mensaje preparado! 🌱",
+  contacto_preparado_texto:
+    "Para enviarlo, confirmá el envío dentro de WhatsApp.",
   whatsapp: "5493546464383",
   instagram_url: "https://www.instagram.com/hombredebarro786",
   facebook_url: "https://www.facebook.com/hombredbarro/",

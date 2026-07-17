@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "@/app/lib/basePath";
+import { imageFor, safeHref } from "@/app/lib/strapi";
 import styles from "./Footer.module.css";
 import type { ConfiguracionGlobal } from "@/app/lib/types";
 
@@ -26,14 +27,15 @@ interface FooterProps {
 }
 
 export default function Footer({ config }: FooterProps) {
+  const configuredLogo = imageFor(config.logo_blanco ?? config.logo, "medium");
   const year = new Date().getFullYear();
   const social = [
-    { url: config.instagram_url, label: "Instagram" },
-    { url: config.facebook_url, label: "Facebook" },
-    { url: config.youtube_url, label: "YouTube" },
-    { url: config.linkedin_url, label: "LinkedIn" },
-    { url: config.pinterest_url, label: "Pinterest" },
-  ].filter((s) => s.url);
+    { url: safeHref(config.instagram_url), label: "Instagram" },
+    { url: safeHref(config.facebook_url), label: "Facebook" },
+    { url: safeHref(config.youtube_url), label: "YouTube" },
+    { url: safeHref(config.linkedin_url), label: "LinkedIn" },
+    { url: safeHref(config.pinterest_url), label: "Pinterest" },
+  ].filter((entry): entry is { url: string; label: string } => Boolean(entry.url));
 
   return (
     <footer className={styles.footer}>
@@ -41,10 +43,10 @@ export default function Footer({ config }: FooterProps) {
         <div className={styles.cols}>
           <div className={styles.brandCol}>
             <Image
-              src={assetPath("/logo.svg")}
-              alt={config.nombre_estudio}
-              width={170}
-              height={142}
+              src={configuredLogo?.src ?? assetPath("/logo.svg")}
+              alt={configuredLogo?.alt || config.nombre_estudio}
+              width={configuredLogo?.width ?? 170}
+              height={configuredLogo?.height ?? 142}
               style={{ width: 170, height: "auto", marginBottom: 14 }}
             />
             <p className={styles.brandTagline}>

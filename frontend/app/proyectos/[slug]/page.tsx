@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import RichText from "@/components/shared/RichText";
 import ProyectoCard from "@/components/proyectos/ProyectoCard";
 import { getProyectoBySlug, getProyectos } from "@/app/lib/content";
-import { imageFor, mediaUrl } from "@/app/lib/strapi";
+import { imageFor, mediaUrl, safeHref } from "@/app/lib/strapi";
 
 export const revalidate = 60;
 
@@ -32,6 +32,7 @@ export default async function ProyectoDetail({ params }: PageParams) {
   const hero = imageFor(proyecto.imagen_principal, "large");
   const planoPdfUrl = proyecto.plano_pdf?.url ? mediaUrl(proyecto.plano_pdf.url) : null;
   const galeria = proyecto.galeria ?? [];
+  const videoUrl = safeHref(proyecto.video_url);
 
   // Related — same first tecnica, excluding self
   const all = await getProyectos();
@@ -163,6 +164,17 @@ export default async function ProyectoDetail({ params }: PageParams) {
             >
               <RichText content={proyecto.descripcion} />
             </div>
+            {videoUrl && (
+              <p style={{ marginTop: 24 }}>
+                <a
+                  href={videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ▶ Ver video del proyecto
+                </a>
+              </p>
+            )}
           </FadeIn>
 
           {galeria.length > 0 && (

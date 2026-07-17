@@ -249,6 +249,7 @@ export interface AdminSession extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
       Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     origin: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Private;
@@ -665,6 +666,23 @@ export interface ApiConfiguracionGlobalConfiguracionGlobal
     draftAndPublish: false;
   };
   attributes: {
+    biblioteca_intro: Schema.Attribute.Text;
+    biblioteca_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Gu\u00EDas, planos y art\u00EDculos de construcci\u00F3n natural'>;
+    blog_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Noticias, talleres, ideas'>;
+    comparador_intro: Schema.Attribute.Text;
+    comparador_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Convencional vs. Sustentable: los n\u00FAmeros'>;
+    contacto_form_texto: Schema.Attribute.Text;
+    contacto_form_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Escribinos por WhatsApp'>;
+    contacto_intro: Schema.Attribute.Text;
+    contacto_preparado_texto: Schema.Attribute.Text;
+    contacto_preparado_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'\u00A1Mensaje preparado! \uD83C\uDF31'>;
+    contacto_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Empecemos a construir juntos'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -690,6 +708,9 @@ export interface ApiConfiguracionGlobalConfiguracionGlobal
       Schema.Attribute.DefaultTo<'Hombre de Barro'>;
     og_image: Schema.Attribute.Media<'images'>;
     pinterest_url: Schema.Attribute.String;
+    proyectos_intro: Schema.Attribute.Text;
+    proyectos_titulo: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Obras que respiran'>;
     publishedAt: Schema.Attribute.DateTime;
     tagline: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Arquitectura Sustentable'>;
@@ -1521,7 +1542,7 @@ export interface PluginUsersPermissionsUser
 }
 
 declare module '@strapi/strapi' {
-  export module Public {
+  export namespace Public {
     export interface ContentTypeSchemas {
       'admin::api-token': AdminApiToken;
       'admin::api-token-permission': AdminApiTokenPermission;

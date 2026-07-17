@@ -3,8 +3,6 @@
 import { useState, type FormEvent } from "react";
 import styles from "./ContactoForm.module.css";
 
-const WHATSAPP_NUMBER = "543546464383";
-
 const INTERES_LABEL: Record<string, string> = {
   vivienda: "Vivienda en tierra cruda",
   techo_verde: "Techo verde",
@@ -15,14 +13,22 @@ const INTERES_LABEL: Record<string, string> = {
 
 type Status =
   | { kind: "idle" }
-  | { kind: "ok" }
+  | { kind: "prepared"; url: string }
   | { kind: "error"; fieldErrors: Record<string, string> };
+
+interface ContactoFormProps {
+  whatsapp?: string;
+  title?: string;
+  intro?: string;
+  preparedTitle?: string;
+  preparedText?: string;
+}
 
 function isValidEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
 }
 
-function buildWhatsAppUrl(data: {
+function buildWhatsAppUrl(whatsapp: string, data: {
   nombre: string;
   email: string;
   telefono: string;
@@ -42,13 +48,20 @@ function buildWhatsAppUrl(data: {
   if (data.telefono) lines.push(`📱 ${data.telefono}`);
   lines.push("");
   lines.push("— Enviado desde hombredebarro.com");
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  return `https://wa.me/${whatsapp}?text=${encodeURIComponent(
     lines.join("\n")
   )}`;
 }
 
-export default function ContactoForm() {
+export default function ContactoForm({
+  whatsapp,
+  title,
+  intro,
+  preparedTitle,
+  preparedText,
+}: ContactoFormProps) {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const whatsappNumber = whatsapp?.replace(/\D/g, "") ?? "";
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,8 +76,7 @@ export default function ContactoForm() {
     };
 
     if (data.hp) {
-      // Honeypot: silently treat as success
-      setStatus({ kind: "ok" });
+      // Honeypot: silently stop automated submissions.
       return;
     }
 
@@ -78,29 +90,39 @@ export default function ContactoForm() {
       return;
     }
 
-    const url = buildWhatsAppUrl(data);
+    if (!whatsappNumber) {
+      setStatus({
+        kind: "error",
+        fieldErrors: { form: "WhatsApp no está configurado. Probá por email." },
+      });
+      return;
+    }
+
+    const url = buildWhatsAppUrl(whatsappNumber, data);
     window.open(url, "_blank", "noopener,noreferrer");
-    setStatus({ kind: "ok" });
+    setStatus({ kind: "prepared", url });
     (e.target as HTMLFormElement).reset();
   }
 
   const fieldErr = (name: string) =>
     status.kind === "error" ? status.fieldErrors[name] : undefined;
 
-  if (status.kind === "ok") {
+  if (status.kind === "prepared") {
     return (
       <div className={styles.form}>
-        <h3 className={styles.formTitle}>¡Mensaje enviado! 🌱</h3>
+        <h3 className={styles.formTitle}>
+          {preparedTitle ?? "¡Mensaje preparado! 🌱"}
+        </h3>
         <div className={styles.success}>
-          Te respondemos dentro de 48 hs hábiles. Si no se abrió WhatsApp
-          automáticamente, escribinos directamente al{" "}
+          {preparedText ?? "Para enviarlo, confirmá el envío dentro de WhatsApp."}{" "}
+          Si no se abrió automáticamente, usá este{" "}
           <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
+            href={status.url}
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: "var(--verde-bosque)", fontWeight: 600 }}
           >
-            +54 9 3546 46-4383
+            enlace directo
           </a>
           .
         </div>
@@ -117,7 +139,9 @@ export default function ContactoForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <h3 className={styles.formTitle}>Escribinos por WhatsApp</h3>
+      <h3 className={styles.formTitle}>
+        {title ?? "Escribinos por WhatsApp"}
+      </h3>
       <p
         style={{
           fontSize: 13,
@@ -127,9 +151,15 @@ export default function ContactoForm() {
           lineHeight: 1.5,
         }}
       >
-        Completá los datos y te abrimos WhatsApp con tu mensaje listo para
-        enviar.
+        {intro ??
+          "Completá los datos y te abrimos WhatsApp con tu mensaje listo para enviar."}
       </p>
+
+      {fieldErr("form") && (
+        <div className={styles.error} role="alert">
+          {fieldErr("form")}
+        </div>
+      )}
 
       <div className={styles.row}>
         <div>

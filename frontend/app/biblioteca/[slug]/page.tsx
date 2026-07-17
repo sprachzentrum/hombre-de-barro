@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
 import RichText from "@/components/shared/RichText";
+import MarkdownText from "@/components/shared/MarkdownText";
 import { getArticuloBySlug, getArticulos } from "@/app/lib/content";
-import { imageFor, mediaUrl } from "@/app/lib/strapi";
+import { imageFor, mediaUrl, safeHref } from "@/app/lib/strapi";
 import type { Articulo } from "@/app/lib/types";
 
 export const revalidate = 60;
@@ -40,16 +41,21 @@ export default async function ArticuloDetail({ params }: PageParams) {
   const cover = imageFor(articulo.imagen_portada, "large");
   const tipoColor = TYPE_COLOR[articulo.tipo];
   const difColor = DIFFICULTY_COLOR[articulo.dificultad];
+  const videoUrl = safeHref(articulo.video_url);
 
-  // Related (same categoria, exclude self)
-  const all = await getArticulos();
-  const relacionados = all
-    .filter(
-      (x) =>
-        x.slug !== articulo.slug &&
-        x.categoria?.slug === articulo.categoria?.slug
-    )
-    .slice(0, 3);
+  // Prefer relations selected by the editor. Fall back to the category.
+  const relacionadosElegidos = (articulo.articulos_relacionados ?? []).filter(
+    (entry) => entry.slug !== articulo.slug
+  );
+  const all = relacionadosElegidos.length ? [] : await getArticulos();
+  const relacionados = (relacionadosElegidos.length
+    ? relacionadosElegidos
+    : all.filter(
+        (entry) =>
+          entry.slug !== articulo.slug &&
+          entry.categoria?.slug === articulo.categoria?.slug
+      )
+  ).slice(0, 3);
 
   return (
     <article>
@@ -227,6 +233,18 @@ export default async function ArticuloDetail({ params }: PageParams) {
                   administración.
                 </p>
               )}
+
+              {videoUrl && (
+                <p style={{ marginTop: 24 }}>
+                  <a
+                    href={videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ▶ Ver video relacionado
+                  </a>
+                </p>
+              )}
             </div>
 
             {articulo.materiales && (
@@ -241,9 +259,9 @@ export default async function ArticuloDetail({ params }: PageParams) {
                 >
                   🧱 Materiales
                 </h2>
-                <div
+                <MarkdownText
+                  content={articulo.materiales}
                   style={{ fontSize: 15, lineHeight: 1.7, color: "var(--carbon-soft)" }}
-                  dangerouslySetInnerHTML={{ __html: articulo.materiales }}
                 />
               </section>
             )}
@@ -260,9 +278,9 @@ export default async function ArticuloDetail({ params }: PageParams) {
                 >
                   🔧 Herramientas
                 </h2>
-                <div
+                <MarkdownText
+                  content={articulo.herramientas}
                   style={{ fontSize: 15, lineHeight: 1.7, color: "var(--carbon-soft)" }}
-                  dangerouslySetInnerHTML={{ __html: articulo.herramientas }}
                 />
               </section>
             )}

@@ -1,6 +1,7 @@
 import FadeIn from "@/components/ui/FadeIn";
 import ContactoForm from "@/components/contacto/ContactoForm";
 import { getConfig } from "@/app/lib/content";
+import { safeHref } from "@/app/lib/strapi";
 
 export const revalidate = 60;
 
@@ -16,6 +17,7 @@ export default async function ContactoPage() {
   const waHref = wa
     ? `https://wa.me/${wa}?text=${encodeURIComponent("Hola, me gustaría consultar sobre un proyecto.")}`
     : null;
+  const instagramUrl = safeHref(config.instagram_url);
 
   const contactItems = [
     config.email && {
@@ -29,10 +31,10 @@ export default async function ContactoPage() {
       href: `tel:${config.telefono.replace(/\s/g, "")}`,
     },
     config.direccion && { icon: "📍", label: config.direccion, href: null },
-    config.instagram_url && {
+    instagramUrl && {
       icon: "📸",
       label: "@hombredebarro",
-      href: config.instagram_url,
+      href: instagramUrl,
     },
   ].filter(Boolean) as Array<{ icon: string; label: string; href: string | null }>;
 
@@ -48,7 +50,7 @@ export default async function ContactoPage() {
         <header style={{ textAlign: "center", marginBottom: 44 }}>
           <span className="eyebrow">Contacto</span>
           <h1 className="section-title">
-            Empecemos a <em style={{ color: "var(--verde-bosque)" }}>construir juntos</em>
+            {config.contacto_titulo ?? "Empecemos a construir juntos"}
           </h1>
           <div className="divider" />
         </header>
@@ -72,8 +74,9 @@ export default async function ContactoPage() {
                 marginBottom: 24,
               }}
             >
-              {config.direccion ?? "Córdoba, Argentina"}. Trabajamos en todo el
-              país. Respondemos en 48 hs hábiles.
+              {config.direccion ?? "Córdoba, Argentina"}.{" "}
+              {config.contacto_intro ??
+                "Trabajamos en todo el país. Respondemos en 48 hs hábiles."}
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
@@ -168,7 +171,13 @@ export default async function ContactoPage() {
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <ContactoForm />
+            <ContactoForm
+              whatsapp={config.whatsapp}
+              title={config.contacto_form_titulo}
+              intro={config.contacto_form_texto}
+              preparedTitle={config.contacto_preparado_titulo}
+              preparedText={config.contacto_preparado_texto}
+            />
         </FadeIn>
       </div>
     </section>
